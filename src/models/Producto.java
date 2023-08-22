@@ -1,11 +1,14 @@
 package models;
 
+import java.util.Date;
+
 public abstract class Producto {
 
     public final static int LONGITUD_IDENTIFICADOR = 5;
 
     private String identificador = new String(new char[LONGITUD_IDENTIFICADOR]);
     private String descripcion;
+    private Date FechaVencimiento;
     private Float precio;
     private Float costoPorUnidad;
     private Integer cantidad;
@@ -24,6 +27,14 @@ public abstract class Producto {
 
     public void setPrecio(Float precio) {
         this.precio = precio;
+    }
+
+    public Date getFechaVencimiento() {
+        return FechaVencimiento;
+    }
+
+    public void setFechaVencimiento(Date fechaVencimiento) {
+        FechaVencimiento = fechaVencimiento;
     }
 
     public Integer getCantidad() {
