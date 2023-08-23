@@ -1,14 +1,12 @@
 package models;
 
-import java.util.Date;
-
 public abstract class Producto {
 
     public final static int LONGITUD_IDENTIFICADOR = 5;
 
     private String identificador = new String(new char[LONGITUD_IDENTIFICADOR]);
     private String descripcion;
-    private Date FechaVencimiento;
+
     private Float precio;
     private Float costoPorUnidad;
     private Integer cantidad;
@@ -27,14 +25,6 @@ public abstract class Producto {
 
     public void setPrecio(Float precio) {
         this.precio = precio;
-    }
-
-    public Date getFechaVencimiento() {
-        return FechaVencimiento;
-    }
-
-    public void setFechaVencimiento(Date fechaVencimiento) {
-        FechaVencimiento = fechaVencimiento;
     }
 
     public Integer getCantidad() {
@@ -61,38 +51,78 @@ public abstract class Producto {
      * No recibe un String como parametro
      * No tiene retorno
      */
-    public void setIdentificador(String identificador) {
+
+    /*
+     * public void setIdentificador(String identificador) {
+     * 
+     * char[] chars = identificador.toCharArray();
+     * 
+     * if (identificador.length() == LONGITUD_IDENTIFICADOR) {
+     * if (Character.isLetter(chars[0]) && Character.isLetter(chars[1])) { // verte
+     * este || o el && determinar cual
+     * // va
+     * 
+     * // las convierte en mayusculas
+     * if (Character.isLowerCase(chars[0])) {
+     * chars[0] = Character.toUpperCase(chars[0]);
+     * }
+     * if (Character.isLowerCase(chars[1])) {
+     * chars[1] = Character.toUpperCase(chars[1]);
+     * }
+     * // comprobar que los otros 3 digitos sean numeros
+     * for (int i = 2; i < LONGITUD_IDENTIFICADOR; i++) {
+     * if (!Character.isDigit(chars[i])) {
+     * System.out.println(
+     * "ERROR! No se seteo el identificador del producto. Del 3er al 5 caracter no es un numero\n\n"
+     * );
+     * break;
+     * } else {
+     * this.identificador = new String(chars);
+     * }
+     * }
+     * 
+     * }
+     * 
+     * else {
+     * System.out.println(
+     * "ERROR! No se seteo el identificador del producto. Los dos primeros caracteres del identifiador deben ser letras.Ejemplo de identificador: AB123\n\n"
+     * );
+     * }
+     * } else {
+     * System.out.println(
+     * "ERROR! No se seteo el identificador del producto.El identificador debe contener solamente 2 letras y 5 numeros OBLIGATORIAMENTE\n\n"
+     * );
+     * }
+     * 
+     * }
+     */
+    public void setIdentificador(String identificador, Integer numeroId) {
 
         char[] chars = identificador.toCharArray();
 
-        if (identificador.length() == LONGITUD_IDENTIFICADOR) {
-            if (Character.isLetter(chars[0]) || Character.isLetter(chars[1])) {
+        // comprueba que los dos primeros sean caracteres
+        if (Character.isLetter(chars[0]) && Character.isLetter(chars[1])) {
 
-                // las convierte en mayusculas
-                if (Character.isLowerCase(chars[0])) {
-                    chars[0] = Character.toUpperCase(chars[0]);
-                }
-                if (Character.isLowerCase(chars[1])) {
-                    chars[1] = Character.toUpperCase(chars[1]);
-                }
+            // las convierto en mayusculas
+            if (Character.isLowerCase(chars[0])) {
+                chars[0] = Character.toUpperCase(chars[0]);
+            }
+            if (Character.isLowerCase(chars[1])) {
+                chars[1] = Character.toUpperCase(chars[1]);
+            }
 
-                // comprobar que los otros 3 digitos sean numeros
-                for (int i = 2; i < LONGITUD_IDENTIFICADOR; i++) {
-                    if (!Character.isDigit(chars[i])) {
-                        System.out.println(
-                                "ERROR! No se seteo el identificador del producto. Del 3er al 5 caracter no es un numero\n\n");
-                        break;
-                    } else {
-                        this.identificador = new String(chars);
-                    }
-                }
+            if (numeroId >= 0 && numeroId <= 999) {
+                String nuevoNumero = String.format("%03d", numeroId);
+                System.out.println("\n\n\n\n\nnuevoNumero:  " + nuevoNumero);
+
+                this.identificador = new String(chars);
+                this.identificador = this.identificador.concat(nuevoNumero);
+                System.out.println("\n\n\n\n\nidentificador:  " + this.identificador);
             } else {
                 System.out.println(
-                        "ERROR! No se seteo el identificador del producto. Los dos primeros caracteres del identifiador deben ser letras.Ejemplo de identificador: AB123\n\n");
+                        "\n\n\nERROR el numero del identificador del producto. Debe ser un numero entre 0 y 999\n\n");
             }
-        } else {
-            System.out.println(
-                    "ERROR! No se seteo el identificador del producto.El identificador debe contener solamente 2 letras y 5 numeros OBLIGATORIAMENTE\n\n");
+
         }
 
     }
@@ -105,8 +135,9 @@ public abstract class Producto {
         this.descripcion = descripcion;
     }
 
-    public Producto(String identificador, String descripcion, Float precio, Float costoPorUnidad, Integer cantidad) {
-        setIdentificador(identificador);
+    public Producto(String identificador, Integer numero, String descripcion, Float precio, Float costoPorUnidad,
+            Integer cantidad) {
+        setIdentificador(identificador, numero);
         this.descripcion = descripcion;
         this.precio = precio;
         this.costoPorUnidad = costoPorUnidad;

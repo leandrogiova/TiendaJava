@@ -1,10 +1,19 @@
 package models;
 
-public class ProductoBebida extends Producto {
+import java.sql.Date;
+
+import funcionesProductos.FuncionesDescuento;
+import funcionesProductos.FuncionesProductos;
+
+public class ProductoBebida extends Producto implements FuncionesProductos, FuncionesDescuento {
+
+    public final static String NOMBRE_CATEGORIA_BEBIDA = "AC";
 
     private Boolean alcoholica;
     private Float porcentajeDeAlcohol;
     private Boolean importado;
+    private Date fechaVencimiento;
+    private Integer calorias;
 
     public Boolean getAlcoholica() {
         return alcoholica;
@@ -34,13 +43,44 @@ public class ProductoBebida extends Producto {
         this.importado = importado;
     }
 
-    public ProductoBebida(String identificador, String descripcion, Float precio, Float costoPorUnidad,
+    public ProductoBebida(String NOMBRE_CATEGORIA_BEBIDA, Integer numero, String descripcion, Float precio,
+            Float costoPorUnidad,
             Integer cantidad, Boolean alcoholica, Float porcentajeDeAlcohol, Boolean importado) {
 
-        super(identificador, descripcion, precio, costoPorUnidad, cantidad);
+        super(NOMBRE_CATEGORIA_BEBIDA, numero, descripcion, precio, costoPorUnidad, cantidad);
         this.alcoholica = alcoholica;
         this.porcentajeDeAlcohol = porcentajeDeAlcohol;
         this.importado = importado;
+    }
+
+    @Override
+    public Date getFechaVencimiento() {
+        return fechaVencimiento;
+    }
+
+    @Override
+    public void setFechaVencimiento(Date fechaVencimiento) {
+        this.fechaVencimiento = fechaVencimiento;
+    }
+
+    @Override
+    public Integer getCalorias() {
+        return this.calorias;
+    }
+
+    @Override
+    public void setCalorias(Integer calorias) {
+        this.calorias = calorias;
+    }
+
+    @Override
+    public Integer getDescuento() {
+        return null;
+    }
+
+    @Override
+    public void setDescuento(Integer descuento) {
+
     }
 
 }
