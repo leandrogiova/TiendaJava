@@ -35,7 +35,7 @@ public abstract class Producto {
         this.cantidad = cantidad;
     }
 
-    public String getIdentificador() {
+    public String getIdentificadorABstracto() {
         return identificador;
     }
 
@@ -96,35 +96,15 @@ public abstract class Producto {
      * 
      * }
      */
-    public void setIdentificador(String identificador, Integer numeroId) {
+    public void setIdentificadorAbstracto(String identificador, Integer numeroId) {
 
-        char[] chars = identificador.toCharArray();
-
-        // comprueba que los dos primeros sean caracteres
-        if (Character.isLetter(chars[0]) && Character.isLetter(chars[1])) {
-
-            // las convierto en mayusculas
-            if (Character.isLowerCase(chars[0])) {
-                chars[0] = Character.toUpperCase(chars[0]);
-            }
-            if (Character.isLowerCase(chars[1])) {
-                chars[1] = Character.toUpperCase(chars[1]);
-            }
-
-            if (numeroId >= 0 && numeroId <= 999) {
-                String nuevoNumero = String.format("%03d", numeroId);
-                System.out.println("\n\n\n\n\nnuevoNumero:  " + nuevoNumero);
-
-                this.identificador = new String(chars);
-                this.identificador = this.identificador.concat(nuevoNumero);
-                System.out.println("\n\n\n\n\nidentificador:  " + this.identificador);
-            } else {
-                System.out.println(
-                        "\n\n\nERROR el numero del identificador del producto. Debe ser un numero entre 0 y 999\n\n");
-            }
-
+        if (numeroId >= 0 && numeroId <= 999) {
+            String nuevoNumero = String.format("%03d", numeroId);
+            this.identificador = identificador.concat(nuevoNumero);
+        } else {
+            System.out.println(
+                    "\n\n\nERROR el numero del identificador del producto. Debe ser un numero entre 0 y 999\n\n");
         }
-
     }
 
     public String getDescripcion() {
@@ -135,9 +115,9 @@ public abstract class Producto {
         this.descripcion = descripcion;
     }
 
-    public Producto(String identificador, Integer numero, String descripcion, Float precio, Float costoPorUnidad,
+    public Producto(Integer numero, String descripcion, Float precio, Float costoPorUnidad,
             Integer cantidad) {
-        setIdentificador(identificador, numero);
+
         this.descripcion = descripcion;
         this.precio = precio;
         this.costoPorUnidad = costoPorUnidad;

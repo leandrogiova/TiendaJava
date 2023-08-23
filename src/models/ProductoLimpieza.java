@@ -16,11 +16,13 @@ public class ProductoLimpieza extends Producto implements FuncionesDescuento {
         TipoDeAplicacion = tipoDeAplicacion;
     }
 
-    public ProductoLimpieza(String NOMBRE_CATEGORIA_LIMPIEZA, Integer numero, String descripcion, Float precio,
+    public ProductoLimpieza(Integer numero, String descripcion, Float precio,
             Float costoPorUnidad,
             Integer cantidad, String tipoDeAplicacion) {
-        super(NOMBRE_CATEGORIA_LIMPIEZA, numero, descripcion, precio, costoPorUnidad, cantidad);
+        super(numero, descripcion, precio, costoPorUnidad, cantidad);
         TipoDeAplicacion = tipoDeAplicacion;
+
+        setIdentificadorAbstracto(NOMBRE_CATEGORIA_LIMPIEZA, numero);
     }
 
     @Override

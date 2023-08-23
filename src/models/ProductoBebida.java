@@ -43,14 +43,17 @@ public class ProductoBebida extends Producto implements FuncionesProductos, Func
         this.importado = importado;
     }
 
-    public ProductoBebida(String NOMBRE_CATEGORIA_BEBIDA, Integer numero, String descripcion, Float precio,
-            Float costoPorUnidad,
-            Integer cantidad, Boolean alcoholica, Float porcentajeDeAlcohol, Boolean importado) {
+    public ProductoBebida(Integer numero, String descripcion,
+            Float precio, Float costoPorUnidad, Integer cantidad, Boolean alcoholica, Float porcentajeDeAlcohol,
+            Boolean importado) {
 
-        super(NOMBRE_CATEGORIA_BEBIDA, numero, descripcion, precio, costoPorUnidad, cantidad);
+        super(numero, descripcion, precio, costoPorUnidad, cantidad);
         this.alcoholica = alcoholica;
         this.porcentajeDeAlcohol = porcentajeDeAlcohol;
         this.importado = importado;
+
+        setIdentificadorAbstracto(NOMBRE_CATEGORIA_BEBIDA, numero);
+
     }
 
     @Override

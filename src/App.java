@@ -9,9 +9,9 @@ public class App {
 
         System.out.println("Creando clase ProductoEnvasado...");
 
-        ProductoEnvasado product1 = new ProductoEnvasado("AB", 35, "Cafe 120gr", 1.20f, 0.90f, 10,
+        ProductoEnvasado product1 = new ProductoEnvasado(35, "Cafe 120gr", 1.20f, 0.90f, 10,
                 "Plastico", true);
-        System.out.println("Producto: \nidentificador:" + product1.getIdentificador() + ",  descripcion:"
+        System.out.println("Producto: \nidentificador:" + product1.getIdentificadorABstracto() + ",  descripcion:"
                 + product1.getDescripcion() + ",  precio: "
                 + product1.getPrecio() + ", costoPorUnidad:" + product1.getCostoPorUnidad() + ",  cantiddad: "
                 + product1.getCantidad() + ", tipoEnvase:  " + product1.getTipoEnvase() + ", importado: "

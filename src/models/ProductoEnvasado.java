@@ -7,7 +7,7 @@ import funcionesProductos.FuncionesProductos;
 
 public class ProductoEnvasado extends Producto implements FuncionesProductos, FuncionesDescuento {
 
-    public final static String NOMBRE_CATEGORIA_ENVASADO = "AB";
+    public final static String NOMBRE_CATEGORIA_ENVASADO = "JJ";
 
     private String tipoEnvase;
     private Boolean importado;
@@ -30,12 +30,15 @@ public class ProductoEnvasado extends Producto implements FuncionesProductos, Fu
         this.importado = importado;
     }
 
-    public ProductoEnvasado(String identificador, Integer numero, String descripcion,
+    public ProductoEnvasado(Integer numero, String descripcion,
             Float precio, Float costoPorUnidad, Integer cantidad, String tipoEnvase, Boolean importado) {
 
-        super(identificador, numero, descripcion, precio, costoPorUnidad, cantidad);
+        super(numero, descripcion, precio, costoPorUnidad, cantidad);
         this.tipoEnvase = tipoEnvase;
         this.importado = importado;
+
+        setIdentificadorAbstracto(NOMBRE_CATEGORIA_ENVASADO, numero);
+
     }
 
     @Override
