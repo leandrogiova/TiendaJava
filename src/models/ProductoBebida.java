@@ -15,6 +15,32 @@ public class ProductoBebida extends Producto implements FuncionesProductos, Func
     private Date fechaVencimiento;
     private Integer calorias;
 
+    /*
+     * Constructor ProductoBebida setea los campos correspondientes
+     * Setea el campo identificador de la clase Heredada Producto con el nombre de
+     * la categoria "AC" y con el numero de producto
+     * Ademas setea el tipo de bebida Alcoholica en True si la bebida es alcoholica
+     * O False si la bebida NO contiene alcohol. Y su graduacion Alcoholica en forma
+     * de porcentaje con el tipo "Float"
+     * Y el campo importado que es un True si el producto es importado
+     * O False si el producto NO es importado
+     * Recibe como parametros Integer, String, Float, Float, Integer, Boolean,
+     * Boolean, Float, Boolean
+     * No retorna ningun tipo
+     */
+    public ProductoBebida(Integer numero, String descripcion,
+            Float precio, Float costoPorUnidad, Integer cantidad, Boolean alcoholica, Float porcentajeDeAlcohol,
+            Boolean importado) {
+
+        super(numero, descripcion, precio, costoPorUnidad, cantidad);
+        this.alcoholica = alcoholica;
+        this.porcentajeDeAlcohol = porcentajeDeAlcohol;
+        this.importado = importado;
+
+        setIdentificadorAbstracto(NOMBRE_CATEGORIA_BEBIDA, numero);
+
+    }
+
     public Boolean getAlcoholica() {
         return alcoholica;
     }
@@ -41,19 +67,6 @@ public class ProductoBebida extends Producto implements FuncionesProductos, Func
 
     public void setImportado(Boolean importado) {
         this.importado = importado;
-    }
-
-    public ProductoBebida(Integer numero, String descripcion,
-            Float precio, Float costoPorUnidad, Integer cantidad, Boolean alcoholica, Float porcentajeDeAlcohol,
-            Boolean importado) {
-
-        super(numero, descripcion, precio, costoPorUnidad, cantidad);
-        this.alcoholica = alcoholica;
-        this.porcentajeDeAlcohol = porcentajeDeAlcohol;
-        this.importado = importado;
-
-        setIdentificadorAbstracto(NOMBRE_CATEGORIA_BEBIDA, numero);
-
     }
 
     @Override

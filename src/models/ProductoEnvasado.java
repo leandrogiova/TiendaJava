@@ -7,7 +7,8 @@ import funcionesProductos.FuncionesProductos;
 
 public class ProductoEnvasado extends Producto implements FuncionesProductos, FuncionesDescuento {
 
-    public final static String NOMBRE_CATEGORIA_ENVASADO = "JJ";
+    public final static String NOMBRE_CATEGORIA_ENVASADO = "AB";
+    public final static String[] TIPO_DE_ENVASE = { "PLASTICO", "VIDRIO", "LATA", };
 
     private String tipoEnvase;
     private Boolean importado;
@@ -30,12 +31,30 @@ public class ProductoEnvasado extends Producto implements FuncionesProductos, Fu
         this.importado = importado;
     }
 
+    /*
+     * Constructor ProductoEnvasado setea los campos correspondientes
+     * Setea el campo identificador de la clase Heredada Producto con el nombre de
+     * la categoria "AB" y con el numero de producto
+     * Ademas setea el tipo de envase a String
+     * Para setear el tipo de envase se recibe un Byte que corresponde al tipo de
+     * envase
+     * Si es 0 ==> PLASTICO
+     * 1 ==> VIDRIO
+     * 2 ==> LATA
+     * Los nombre "PLASTICO", VIDRIO, LATA se almacenan en una
+     * constante "TIPO_DE_ENVASE"
+     * Y el campo importado que es un True si el producto es importado
+     * O False si el producto NO es importado
+     * Recibe como parametros Integer, String, Float, Float, Integer, String,
+     * Boolean
+     * No retorna ningun tipo
+     */
     public ProductoEnvasado(Integer numero, String descripcion,
-            Float precio, Float costoPorUnidad, Integer cantidad, String tipoEnvase, Boolean importado) {
+            Float precio, Float costoPorUnidad, Integer cantidad, byte tipoEnvaseNum, Boolean importado) {
 
         super(numero, descripcion, precio, costoPorUnidad, cantidad);
-        this.tipoEnvase = tipoEnvase;
         this.importado = importado;
+        this.tipoEnvase = TIPO_DE_ENVASE[tipoEnvaseNum];
 
         setIdentificadorAbstracto(NOMBRE_CATEGORIA_ENVASADO, numero);
 

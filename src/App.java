@@ -1,6 +1,4 @@
-import java.util.Scanner;
 
-import models.ProductoBebida;
 import models.ProductoEnvasado;
 
 public class App {
@@ -9,13 +7,11 @@ public class App {
 
         System.out.println("Creando clase ProductoEnvasado...");
 
-        ProductoEnvasado product1 = new ProductoEnvasado(35, "Cafe 120gr", 1.20f, 0.90f, 10,
-                "Plastico", true);
+        ProductoEnvasado product1 = new ProductoEnvasado(10, "Cafe 120gr", 12.5f, 10.5f, 10, (byte) 1, true);
         System.out.println("Producto: \nidentificador:" + product1.getIdentificadorABstracto() + ",  descripcion:"
-                + product1.getDescripcion() + ",  precio: "
-                + product1.getPrecio() + ", costoPorUnidad:" + product1.getCostoPorUnidad() + ",  cantiddad: "
-                + product1.getCantidad() + ", tipoEnvase:  " + product1.getTipoEnvase() + ", importado: "
-                + product1.getImportado() + "\n\n\n");
+                + product1.getDescripcion() + ",  precio: " + product1.getPrecio() + ", costoPorUnidad:"
+                + product1.getCostoPorUnidad() + ",  cantiddad: " + product1.getCantidad() + ", tipoEnvase:  "
+                + product1.getTipoEnvase() + ", importado: " + product1.getImportado() + "\n\n\n");
 
         /*
          * System.out.println("Ingrese un numero");

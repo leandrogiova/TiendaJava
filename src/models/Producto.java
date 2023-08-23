@@ -11,6 +11,54 @@ public abstract class Producto {
     private Float costoPorUnidad;
     private Integer cantidad;
 
+    /*
+     * En el constructor Producto no se setea el campo identificador ya que lo setea
+     * las clases hijas(ProductoEnvasado, ProductoBebida,
+     * ProductoLimpieza)
+     * Setea los campos descripcion que sera el nombre del producto con el detalle
+     * precio con el precio que va a tener el producto a la venta
+     * costoPorUnidad que sera el costo que se pago el producto
+     * Recibe como parametros un Integer, String, Float, Float, Integer
+     * No retorna ningun tipo
+     */
+    public Producto(Integer numero, String descripcion, Float precio, Float costoPorUnidad,
+            Integer cantidad) {
+
+        this.descripcion = descripcion;
+        this.precio = precio;
+        this.costoPorUnidad = costoPorUnidad;
+        this.cantidad = cantidad;
+    }
+
+    public Producto() {
+    }
+
+    public String getIdentificadorABstracto() {
+        return identificador;
+    }
+
+    /*
+     * Funcion setIdentificadorAbstracto va a setear el identificador(va a ser
+     * obligatorio que contenga 2caracteres y 3 numeros).
+     * Tomando como argumentos un String que va a ser el tipo de la categoria del
+     * producto es decir, AB, AC, AZ
+     * Y un numero que va a ser el numero del producto
+     * El numero debe ser un numero de 3 digitos, obligatorio
+     * Recibe como argumentos un String y un Integer
+     * No retorna ningun tipo
+     */
+
+    public void setIdentificadorAbstracto(String identificador, Integer numeroId) {
+
+        if (numeroId >= 0 && numeroId <= 999) {
+            String nuevoNumero = String.format("%03d", numeroId);
+            this.identificador = identificador.concat(nuevoNumero);
+        } else {
+            System.out.println(
+                    "\n\n\nERROR el numero del identificador del producto. Debe ser un numero entre 0 y 999\n\n");
+        }
+    }
+
     public Float getCostoPorUnidad() {
         return costoPorUnidad;
     }
@@ -35,96 +83,12 @@ public abstract class Producto {
         this.cantidad = cantidad;
     }
 
-    public String getIdentificadorABstracto() {
-        return identificador;
-    }
-
-    /*
-     * Funcion setIdentificador va a setear el identificador(va a ser obligatorio
-     * que contenga 2caracteres y 3 numeros).
-     * Convierte un string a un array de chars, luego comprueba que tenga un largo
-     * de 5 caracteres
-     * Luego verifica que los dos primeros caracteres sean letras y si son
-     * minusculas los transforma a mayusculas
-     * Luego verifica que los 3 siguientes caracteres sean numeros
-     * Si cumple con todas las condisiones se setea el valor correspondiente.
-     * No recibe un String como parametro
-     * No tiene retorno
-     */
-
-    /*
-     * public void setIdentificador(String identificador) {
-     * 
-     * char[] chars = identificador.toCharArray();
-     * 
-     * if (identificador.length() == LONGITUD_IDENTIFICADOR) {
-     * if (Character.isLetter(chars[0]) && Character.isLetter(chars[1])) { // verte
-     * este || o el && determinar cual
-     * // va
-     * 
-     * // las convierte en mayusculas
-     * if (Character.isLowerCase(chars[0])) {
-     * chars[0] = Character.toUpperCase(chars[0]);
-     * }
-     * if (Character.isLowerCase(chars[1])) {
-     * chars[1] = Character.toUpperCase(chars[1]);
-     * }
-     * // comprobar que los otros 3 digitos sean numeros
-     * for (int i = 2; i < LONGITUD_IDENTIFICADOR; i++) {
-     * if (!Character.isDigit(chars[i])) {
-     * System.out.println(
-     * "ERROR! No se seteo el identificador del producto. Del 3er al 5 caracter no es un numero\n\n"
-     * );
-     * break;
-     * } else {
-     * this.identificador = new String(chars);
-     * }
-     * }
-     * 
-     * }
-     * 
-     * else {
-     * System.out.println(
-     * "ERROR! No se seteo el identificador del producto. Los dos primeros caracteres del identifiador deben ser letras.Ejemplo de identificador: AB123\n\n"
-     * );
-     * }
-     * } else {
-     * System.out.println(
-     * "ERROR! No se seteo el identificador del producto.El identificador debe contener solamente 2 letras y 5 numeros OBLIGATORIAMENTE\n\n"
-     * );
-     * }
-     * 
-     * }
-     */
-    public void setIdentificadorAbstracto(String identificador, Integer numeroId) {
-
-        if (numeroId >= 0 && numeroId <= 999) {
-            String nuevoNumero = String.format("%03d", numeroId);
-            this.identificador = identificador.concat(nuevoNumero);
-        } else {
-            System.out.println(
-                    "\n\n\nERROR el numero del identificador del producto. Debe ser un numero entre 0 y 999\n\n");
-        }
-    }
-
     public String getDescripcion() {
         return descripcion;
     }
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
-    }
-
-    public Producto(Integer numero, String descripcion, Float precio, Float costoPorUnidad,
-            Integer cantidad) {
-
-        this.descripcion = descripcion;
-        this.precio = precio;
-        this.costoPorUnidad = costoPorUnidad;
-        this.cantidad = cantidad;
-    }
-
-    public Producto() {
     }
 
 }
