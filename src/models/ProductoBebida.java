@@ -7,7 +7,7 @@ import funcionesProductos.FuncionesProductos;
 
 public class ProductoBebida extends Producto implements FuncionesProductos, FuncionesDescuento {
 
-    public final static String NOMBRE_CATEGORIA_BEBIDA = "AC";
+    public static String NOMBRE_CATEGORIA_BEBIDA = "AC";
 
     private Boolean alcoholica;
     private Float porcentajeDeAlcohol;
@@ -30,12 +30,14 @@ public class ProductoBebida extends Producto implements FuncionesProductos, Func
      */
     public ProductoBebida(Integer numero, String descripcion,
             Float precio, Float costoPorUnidad, Integer cantidad, Boolean alcoholica, Float porcentajeDeAlcohol,
-            Boolean importado) {
+            Boolean importado, Date fechaVencimiento, Integer calorias) {
 
         super(numero, descripcion, precio, costoPorUnidad, cantidad);
         this.alcoholica = alcoholica;
         this.porcentajeDeAlcohol = porcentajeDeAlcohol;
         this.importado = importado;
+        this.fechaVencimiento = fechaVencimiento;
+        this.calorias = calorias;
 
         setIdentificadorAbstracto(NOMBRE_CATEGORIA_BEBIDA, numero);
 

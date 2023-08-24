@@ -2,7 +2,7 @@ package models;
 
 public abstract class Producto {
 
-    public final static int LONGITUD_IDENTIFICADOR = 5;
+    public static int LONGITUD_IDENTIFICADOR = 5;
 
     private String identificador = new String(new char[LONGITUD_IDENTIFICADOR]);
     private String descripcion;
@@ -33,7 +33,7 @@ public abstract class Producto {
     public Producto() {
     }
 
-    public String getIdentificadorABstracto() {
+    public String getIdentificadorAbstracto() {
         return identificador;
     }
 

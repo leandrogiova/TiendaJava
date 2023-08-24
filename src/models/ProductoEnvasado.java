@@ -7,8 +7,8 @@ import funcionesProductos.FuncionesProductos;
 
 public class ProductoEnvasado extends Producto implements FuncionesProductos, FuncionesDescuento {
 
-    public final static String NOMBRE_CATEGORIA_ENVASADO = "AB";
-    public final static String[] TIPO_DE_ENVASE = { "PLASTICO", "VIDRIO", "LATA", };
+    public static String NOMBRE_CATEGORIA_ENVASADO = "AB";
+    public static String[] TIPO_DE_ENVASE = { "PLASTICO", "VIDRIO", "LATA", };
 
     private String tipoEnvase;
     private Boolean importado;
@@ -50,11 +50,14 @@ public class ProductoEnvasado extends Producto implements FuncionesProductos, Fu
      * No retorna ningun tipo
      */
     public ProductoEnvasado(Integer numero, String descripcion,
-            Float precio, Float costoPorUnidad, Integer cantidad, byte tipoEnvaseNum, Boolean importado) {
+            Float precio, Float costoPorUnidad, Integer cantidad, byte tipoEnvaseNum, Boolean importado,
+            Date fechaVencimiento, Integer calorias) {
 
         super(numero, descripcion, precio, costoPorUnidad, cantidad);
         this.importado = importado;
         this.tipoEnvase = TIPO_DE_ENVASE[tipoEnvaseNum];
+        this.fechaVencimiento = fechaVencimiento;
+        this.calorias = calorias;
 
         setIdentificadorAbstracto(NOMBRE_CATEGORIA_ENVASADO, numero);
 
