@@ -91,4 +91,20 @@ public abstract class Producto {
         this.descripcion = descripcion;
     }
 
+    /*
+     * Funcion setearGanacia setea el precio del producto respecto el precio que se
+     * compro el producto
+     * Es decir yo compro un producto a 100 y quiero tener de ganancia el 10%.
+     * Entonces a la funcion setearGanacia le paso el "precioProducto"=100 y le paso
+     * el porcentaje "porcentaje"=10
+     * Y esto setea el campo "precio" con el precio que pague el producto + el
+     * porcentaje que quiero tener de ganacia
+     * Recibe como argemento dos Float, el precio que se pago el producto y el
+     * aumento que quiere tener de ganancia
+     * No retorna ningun tipo
+     */
+    public void setearGanacia(Float precioProducto, Float porcentaje) {
+        Float ganancia = precioProducto * (porcentaje / 100); // Calcula la ganancia en base al porcentaje
+        this.precio = precioProducto + ganancia; // Suma la ganancia al precio original
+    }
 }
