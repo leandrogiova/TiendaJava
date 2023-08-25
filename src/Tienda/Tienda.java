@@ -14,7 +14,8 @@ public class Tienda {
     private String nombre;
     private Long cantidad;
     private Double saldoEnCaja;
-    private Venta[] nuevaVenta;
+    // private Venta[] nuevaVenta;
+    private Venta nuevaVenta;
 
     private Map<String, Producto> inventario;
 
@@ -42,11 +43,11 @@ public class Tienda {
         this.saldoEnCaja = saldoEnCaja;
     }
 
-    public Venta[] getNuevaVenta() {
+    public Venta getNuevaVenta() {
         return nuevaVenta;
     }
 
-    public void setNuevaVenta(Venta[] nuevaVenta) {
+    public void setNuevaVenta(Venta nuevaVenta) {
         this.nuevaVenta = nuevaVenta;
     }
 
@@ -87,35 +88,32 @@ public class Tienda {
      * No retorna ningun tipo
      */
     public void verInventario() {
-
+        System.out.println("Viendo inventario...");
         for (Map.Entry<String, Producto> entry : this.inventario.entrySet()) {
             String clave = entry.getKey();
             Producto producto = entry.getValue();
 
-            System.out.println("\nClave: " + clave);
-
-            System.out.println("Producto: identificador:" +
-                    producto.getIdentificadorAbstracto()
-                    + ",  descripcion:" + producto.getDescripcion()
+            System.out.println("\n\n--->" +
+                    producto.getIdentificadorAbstracto() + "  "
+                    + producto.getDescripcion() + "  "
                     + ",  precio: " + producto.getPrecio()
-                    + ", costoPorUnidad:" + producto.getCostoPorUnidad() +
-                    ",  cantiddad: " + producto.getCantidad());
+                    + ",  cant: " + producto.getCantidad());
 
             char[] chars = clave.toCharArray();
             if (chars[0] == 'A' && chars[1] == 'B') {
                 ProductoEnvasado a = (ProductoEnvasado) producto;
-                System.out.println("tipoEnvase:" + a.getTipoEnvase()
-                        + "importado: " + a.getImportado()
-                        + "fechaVencimiento: " + a.getFechaVencimiento()
-                        + "calorias: " + a.getCalorias());
+                System.out.print("T.Env:" + a.getTipoEnvase()
+                        + ",  importado: " + a.getImportado()
+                        + ",  fecVenc: " + a.getFechaVencimiento()
+                        + ",  cal: " + a.getCalorias());
             }
             if (chars[0] == 'A' && chars[1] == 'C') {
                 ProductoBebida a = (ProductoBebida) producto;
-                System.out.println("Alcoholica:" + a.getAlcoholica()
-                        + "porcentajeDeAlcohol: " + a.getPorcentajeDeAlcohol()
-                        + "importado: " + a.getImportado()
-                        + "fechaVencimiento: " + a.getFechaVencimiento()
-                        + "calorias: " + a.getCalorias());
+                System.out.print("Alcoholica:" + a.getAlcoholica()
+                        + ", %Alcohol: " + a.getPorcentajeDeAlcohol()
+                        + ",  importado: " + a.getImportado()
+                        + ",  fecVenc:" + a.getFechaVencimiento()
+                        + ",  cal: " + a.getCalorias());
             }
             if (chars[0] == 'A' && chars[1] == 'Z') {
                 ProductoLimpieza a = (ProductoLimpieza) producto;
@@ -193,9 +191,9 @@ public class Tienda {
     public void verTienda() {
 
         System.out.println("\n viendo la tienda...");
-        System.out.println("nombre: " + this.nombre + "  cantidad: " + this.cantidad + "this.saldoEnCaja: "
+        System.out.println("nombre: " + this.nombre + ",   cantidad: " + this.cantidad + ",  saldoEnCaja: "
                 + this.saldoEnCaja + "\n");
-        System.out.println("Viendo Inventario: ");
+
         verInventario();
     }
 
@@ -203,22 +201,67 @@ public class Tienda {
      * 
      */
     public void realizarVenta(Producto producto) {
-        Venta nuevaVenta = new Venta();
+        this.nuevaVenta = new Venta();
+        this.nuevaVenta.setId(1l);
+        nuevaVenta.agregarUnProductoALaVenta(producto, getInventario());
 
-        nuevaVenta.agregarUnProductoALaVenta(producto, this.inventario);
+        // saldo y cantidad
+    }
 
-        //////////////////////////
-        System.out.println("Venta concretada: ");
-        for (int i = 0; i < nuevaVenta.getProductos().length; i++) {
-            if (nuevaVenta.getProductos()[i] != null) {
+    /*
+     * 
+     */
+    public void cerrarVenta(Venta venta) {
+        this.saldoEnCaja = this.saldoEnCaja + venta.getPrecio();
 
-                System.out.println(nuevaVenta.getProductos()[0].getIdentificadorAbstracto() + "  "
-                        + nuevaVenta.getProductos()[i].getDescripcion() + "  "
-                        + nuevaVenta.getProductos()[i].getCantidad() + " x  "
-                        + nuevaVenta.getProductos()[i].getPrecio());
+        actualizarInventarioConProductoVendido(venta.getProductos());
+
+        verInventario();
+        venta.verVenta();
+
+    }
+
+    /*
+     * 
+     */
+    public void actualizarInventarioConProductoVendido(Producto[] productosVenta) {
+
+        for (Map.Entry<String, Producto> entry : this.inventario.entrySet()) {
+            String clave = entry.getKey();
+            Producto producto = entry.getValue();
+
+            for (int i = 0; i < productosVenta.length; i++) {
+
+                if (productosVenta[i] != null) {
+                    if (productosVenta[i].getIdentificadorAbstracto().equals(clave)) {
+
+                        int cantidad = entry.getValue().getCantidad();
+                        cantidad = cantidad - productosVenta[i].getCantidad();
+                        entry.getValue().setCantidad(cantidad);
+                    }
+                }
+
+            }
+
+        }
+
+    }
+
+    /*
+     * recibe un identificador de producto
+     * Y retorna el producto almacenado en el identificador
+     */
+    public Producto encontrarProducto(String identificador) {
+
+        for (Map.Entry<String, Producto> entry : this.inventario.entrySet()) {
+            String clave = entry.getKey();
+            Producto producto = entry.getValue();
+
+            if (clave.equals(identificador)) {
+                return producto;
             }
         }
-        System.out.println("\nTOTAL VENTA: " + nuevaVenta.getPrecio());
+        return null;
     }
 
 }
