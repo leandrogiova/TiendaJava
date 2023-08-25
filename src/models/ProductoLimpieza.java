@@ -5,6 +5,7 @@ import funcionesProductos.FuncionesDescuento;
 public class ProductoLimpieza extends Producto implements FuncionesDescuento {
 
     public static String NOMBRE_CATEGORIA_LIMPIEZA = "AZ";
+
     public static String[] TIPO_DE_APLICACION = { "COCINA", "PISOS", "ROPA", "MULTIUSO" };
 
     private String TipoDeAplicacion;

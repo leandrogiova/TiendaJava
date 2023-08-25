@@ -1,8 +1,10 @@
 
 import java.sql.Date;
 import java.util.Map;
+import java.util.Scanner;
 
 import Tienda.Tienda;
+import Tienda.Operaciones.Venta;
 import models.Producto;
 import models.ProductoBebida;
 import models.ProductoEnvasado;
@@ -84,7 +86,7 @@ public class App {
                                 false, fecha1, 1500);
                 ProductoEnvasado productoE7 = new ProductoEnvasado(007, "Zanahorias 1kg", 0.50f, 0.02f, 2, (byte) 1,
                                 false, fecha1, 1500);
-                ProductoEnvasado productoE8 = new ProductoEnvasado(8, "Asado 3kg", 75f, 65f, 6, (byte) 1, false, fecha1,
+                ProductoEnvasado productoE8 = new ProductoEnvasado(8, "Asado 3kg", 75f, 65f, 6, (byte) 0, false, fecha1,
                                 1500);
 
                 ProductoLimpieza productoL1 = new ProductoLimpieza(001, "Lavandina 1L", 8.50f, 7.50f, 5, (byte) 3);
@@ -143,8 +145,32 @@ public class App {
                 nuevaTienda.getInventario().put(productoL6.getIdentificadorAbstracto(), productoL6);
                 nuevaTienda.getInventario().put(productoL7.getIdentificadorAbstracto(), productoL7);
                 nuevaTienda.getInventario().put(productoL8.getIdentificadorAbstracto(), productoL8);
+                // nuevaTienda.verInventario();
+                /*
+                 * 
+                 * 
+                 * 
+                 * 
+                 * 
+                 */
+                // TODO Auto-generated method stub
+                // CUANDO YO INTENTE GUARDAR OTRO ELEMENTO IGUAL CON LA MISMA KEY SE DEBE SUMAR
+                // LAS CANTIDADES Y SI LOS PRECIOS SON DIFERENTES SE GUARDA EL PRECIO NUEVO COMO
+                // HACE UN HasMap por defecto
+                // ADEMAS AGREGAR LAS FUNCIONES MODIFICAR, Y ELIMINAR
+                // MODIFICAR UNA TIENDA
+                // BUSCAR UN PRODUCTO DEL INVENTARIO
+                // BUSCAR TODOS LOS PRODUCTOS DE BEBIDA DEL INVENTARIO, o todos los de limpieza
+                // o todos los de envasados
+                // eliminar un producto del inventario
 
-                nuevaTienda.verInventario();
+                // ProductoEnvasado productoE10 = new ProductoEnvasado(45, "Arroz 1kg", 15f,
+                // 15.0f, 100, (byte) 0, true,
+
+                ////////////////////////
+                // fecha1, 1500);
+                // nuevaTienda2.comprarProducto(productoE10);
+                // nuevaTienda2.comprarProducto(productoE10);
 
                 System.out.println("\n\n\n\n\n\n\n\n\n\nSe creara una nueva tiendan\n");
                 Tienda nuevaTienda2 = new Tienda();
@@ -152,20 +178,28 @@ public class App {
                 nuevaTienda2.setCantidad(50l);
                 nuevaTienda2.setSaldoEnCaja(1000d);
 
-                ProductoEnvasado productoE100 = new ProductoEnvasado(46, "Arroz 1kg", 15f, 15.0f, 2, (byte) 1, true,
+                ProductoEnvasado productoE100 = new ProductoEnvasado(46, "Arroz 1kg", 15f, 15.0f, 6, (byte) 1, true,
                                 fecha1, 1500);
-                nuevaTienda2.getInventario().put(productoE100.getIdentificadorAbstracto(), productoE100);
-                nuevaTienda2.getInventario().put(productoE100.getIdentificadorAbstracto(), productoE100);
-                nuevaTienda2.getInventario().put(productoE100.getIdentificadorAbstracto(), productoE100);
+                nuevaTienda2.getInventario().put(productoE100.getIdentificadorAbstracto(),
+                                productoE100);
+                nuevaTienda2.getInventario().put(productoB1.getIdentificadorAbstracto(),
+                                productoB1);
 
-                // CUANDO YO INTENTE GUARDAR OTRO ELEMENTO IGUAL CON LA MISMA KEY SE DEBE SUMAR
-                // LAS CANTIDADES Y SI LOS PRECIOS SON DIFERENTES SE GUARDA EL PRECIO NUEVO COMO
-                // HACE UN HasMap por defecto
+                System.out.println("Ingrese 1 para continuar.....");
+                Scanner entrada = new Scanner(System.in);
+                entrada.nextInt();
 
-                ProductoEnvasado productoE10 = new ProductoEnvasado(45, "Arroz 1kg", 15f, 15.0f, 2, (byte) 1, true,
-                                fecha1, 1500);
-                // nuevaTienda2.comprarProducto(productoE10);
-                // nuevaTienda2.comprarProducto(productoE10);
-                nuevaTienda2.verTienda();
+                // ProductoEnvasado productoE101 = new ProductoEnvasado(46, "Arroz 1kg", 15f,
+                // 15.0f, 8, (byte) 1, true,
+                Venta nuevaVenta1 = new Venta();
+                // nuevaVenta1.productoVenderInventario(productoE101,
+                // nuevaTienda2.getInventario());
+
+                productoL1.setCantidad(2);
+                // nuevaVenta1.agregarUnProductoALaVenta(productoL3,
+                // nuevaTienda.getInventario());
+                nuevaTienda2.realizarVenta(productoL1);
+                nuevaTienda2.realizarVenta(productoL1);
+
         }
 }

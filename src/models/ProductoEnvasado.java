@@ -3,9 +3,9 @@ package models;
 import java.sql.Date;
 
 import funcionesProductos.FuncionesDescuento;
-import funcionesProductos.FuncionesProductos;
+import funcionesProductos.InterfaceFuncionesProductos;
 
-public class ProductoEnvasado extends Producto implements FuncionesProductos, FuncionesDescuento {
+public class ProductoEnvasado extends Producto implements InterfaceFuncionesProductos, FuncionesDescuento {
 
     public static String NOMBRE_CATEGORIA_ENVASADO = "AB";
     public static String[] TIPO_DE_ENVASE = { "PLASTICO", "VIDRIO", "LATA", };

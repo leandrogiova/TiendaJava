@@ -2,7 +2,7 @@ package funcionesProductos;
 
 import java.sql.Date;
 
-public interface FuncionesProductos {
+public interface InterfaceFuncionesProductos {
 
     public void setFechaVencimiento(Date fechaVencimiento);
 

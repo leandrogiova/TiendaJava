@@ -3,6 +3,7 @@ package Tienda;
 import java.util.HashMap;
 import java.util.Map;
 
+import Tienda.Operaciones.Venta;
 import models.Producto;
 import models.ProductoBebida;
 import models.ProductoEnvasado;
@@ -13,6 +14,7 @@ public class Tienda {
     private String nombre;
     private Long cantidad;
     private Double saldoEnCaja;
+    private Venta[] nuevaVenta;
 
     private Map<String, Producto> inventario;
 
@@ -38,6 +40,14 @@ public class Tienda {
 
     public void setSaldoEnCaja(Double saldoEnCaja) {
         this.saldoEnCaja = saldoEnCaja;
+    }
+
+    public Venta[] getNuevaVenta() {
+        return nuevaVenta;
+    }
+
+    public void setNuevaVenta(Venta[] nuevaVenta) {
+        this.nuevaVenta = nuevaVenta;
     }
 
     public Map<String, Producto> getInventario() {
@@ -187,6 +197,28 @@ public class Tienda {
                 + this.saldoEnCaja + "\n");
         System.out.println("Viendo Inventario: ");
         verInventario();
+    }
+
+    /*
+     * 
+     */
+    public void realizarVenta(Producto producto) {
+        Venta nuevaVenta = new Venta();
+
+        nuevaVenta.agregarUnProductoALaVenta(producto, this.inventario);
+
+        //////////////////////////
+        System.out.println("Venta concretada: ");
+        for (int i = 0; i < nuevaVenta.getProductos().length; i++) {
+            if (nuevaVenta.getProductos()[i] != null) {
+
+                System.out.println(nuevaVenta.getProductos()[0].getIdentificadorAbstracto() + "  "
+                        + nuevaVenta.getProductos()[i].getDescripcion() + "  "
+                        + nuevaVenta.getProductos()[i].getCantidad() + " x  "
+                        + nuevaVenta.getProductos()[i].getPrecio());
+            }
+        }
+        System.out.println("\nTOTAL VENTA: " + nuevaVenta.getPrecio());
     }
 
 }
