@@ -116,13 +116,12 @@ public class Venta implements InterfaceVenta {
     }
 
     /*
-     * 
+     * Funcion agregarUnProductoALaVenta
      */
     public void agregarUnProductoALaVenta(Producto p1, Map<String, Producto> inventario) {
 
         if (inventario.isEmpty()) {
             System.out.println("El inventario esta vacio");
-
         } else {
             // valido que no se compren mas de 10 productos
             if (p1.getCantidad() <= CANTIDAD_DE_PRODUCTOS_EL_MISMO_TIPO) {
@@ -130,12 +129,8 @@ public class Venta implements InterfaceVenta {
                 if (p2 != null) {
                     agregarProducto_A_Productos(p2);// agega un producto a this.productos en la posicion que corresponde
                     this.precio = this.precio + (p2.getPrecio() * p2.getCantidad());
-
                 }
-
-            }
-
-            else {
+            } else {
                 System.out.println("No se pueden comprar mas de " + CANTIDAD_DE_PRODUCTOS_EL_MISMO_TIPO + " productos");
             }
         }
@@ -143,12 +138,14 @@ public class Venta implements InterfaceVenta {
     }
 
     /*
-     * 
-    */
+     * Funcion agregarProducto_A_Productos recibe un producto y lo agrega
+     * al array de productos de la venta.
+     * Es decir, la clase venta tiene el campo "Producto[] productos"
+     * Esta función agrega ese producto a la lista
+     * Recibe como atributo un Producto
+     * No tiene ningun tipo de retorno
+     */
     public void agregarProducto_A_Productos(Producto producto) {
-
-        verProductos();
-
         for (int i = 0; i < CANTIDAD_PRODUCTOS_A_VENDER; i++) {
             if (getProductos()[i] == null) {
                 getProductos()[i] = producto;
@@ -160,7 +157,20 @@ public class Venta implements InterfaceVenta {
     }
 
     /*
-     * 
+     * funcion buscarProductoEnInventario
+     * Recibe un producto y un inventario de tipo Map
+     * va a buscar a ese producto y va a corroborar que el producto exista en el
+     * inventario.
+     * Que el producto den inventario NO este en 0, si esta en 0 significa que el
+     * producto no se va a poder
+     * vender ya que no hay stock de ese producto.
+     * Y va a revisar que si se quiere comprar mas productos de los que hay en stock
+     * se van a vender todos los productos
+     * que haya en stock. Al tener que setear este campo de cantidad al producto que
+     * se va a vender la funcion
+     * retorna el producto
+     * Recibe un Producto y un Map<Strin, Producto>
+     * Retorna el Producto que se quiera vender
      */
     public Producto buscarProductoEnInventario(Producto p1, Map<String, Producto> inventario) {
 

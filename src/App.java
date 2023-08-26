@@ -13,6 +13,14 @@ import models.ProductoLimpieza;
 public class App {
         public static void main(String[] args) throws Exception {
 
+                Scanner entrada = new Scanner(System.in);
+                Scanner entrada2 = new Scanner(System.in);
+                Scanner scanner = new Scanner(System.in);
+                Tienda nuevaTienda2 = new Tienda();
+                Venta nuevaVenta_ = new Venta();
+                int opcion;
+                int contadorVentas = 0;
+
                 System.out.println("Creando clase Productos...");
 
                 Date fecha1 = new Date(123, 10, 1);
@@ -82,7 +90,7 @@ public class App {
                 Tienda nuevaTienda = new Tienda();
                 nuevaTienda.setNombre("TiendaLeandrooooou");
                 nuevaTienda.setCantidad(1500l);
-                nuevaTienda.setSaldoEnCaja(150000d);
+                nuevaTienda.setSaldoEnCaja(150d);
 
                 nuevaTienda.getInventario().put(productoB1.getIdentificadorAbstracto(), productoB1);
                 nuevaTienda.getInventario().put(productoB2.getIdentificadorAbstracto(), productoB2);
@@ -111,8 +119,85 @@ public class App {
                 nuevaTienda.getInventario().put(productoL7.getIdentificadorAbstracto(), productoL7);
                 nuevaTienda.getInventario().put(productoL8.getIdentificadorAbstracto(), productoL8);
 
+                /*
+                 * 
+                 * 
+                 * 
+                 * 
+                 * 
+                 * 
+                 */
+
+                ProductoLimpieza productoL20 = new ProductoLimpieza(8, "Detergente para la ropa 1l", 900000f, 99999f, 2,
+                                (byte) 2);
+                System.out.println("\n\nComprando productos...");
+                nuevaTienda.comprarProducto(productoL20);
+
+                do {
+                        System.out.println("\n\nMenu para compras:");
+                        System.out.println("1 - Ingresar un producto para comprar");
+                        System.out.println("2 - Para terminar");
+                        System.out.print("Ingrese una opcion: ");
+
+                        opcion = scanner.nextInt();
+
+                        switch (opcion) {
+                                case 1:
+                                        System.out.println("Ingresando nuevo producto");
+                                        System.out.print("Ingrese el tipo de producto:"
+                                                        + "\n1-Producto Envasado(arroz, fideos, servilletas ,cafe ,aceite...)"
+                                                        + "\n2-Producto Bebidas(Agua,CocaCola, Vino, Cerveza...)"
+                                                        + "\n3-Producto Limpieza(detergente)");
+
+                                        int num = scanner.nextInt();
+                                        if (num == 1) {
+                                                System.out.println("Ingrese un numero de producto");
+                                                int idNum = scanner.nextInt();
+                                                productoE1.setIdentificadorAbstracto("AB", idNum);
+                                        }
+                                        if (num == 2) {
+                                                System.out.println("Ingrese un numero de producto");
+                                                int idNum = scanner.nextInt();
+                                                productoE1.setIdentificadorAbstracto("AC", idNum);
+                                        }
+                                        if (num == 3) {
+                                                System.out.println("Ingrese un numero de producto");
+                                                int idNum = scanner.nextInt();
+                                                productoE1.setIdentificadorAbstracto("AZ", idNum);
+
+                                        }
+
+                                        System.out.println("Ingrese nombre y descripcion");
+                                        String descripcion = entrada.nextLine();
+                                        productoE1.setDescripcion(descripcion);
+
+                                        System.out.println("Ingrese un numero el precio de costo: ");
+                                        Float idNum_ = scanner.nextFloat();
+                                        productoE1.setCostoPorUnidad(idNum_);
+
+                                        System.out.println("ingrese el porcentaje de ganacia al producto:");
+                                        idNum_ = entrada.nextFloat();
+                                        productoE1.setearGanacia(productoE1.getCostoPorUnidad(), idNum_);
+
+                                        System.out.println("Ingrese la cantidad:");
+                                        int idNum2 = scanner.nextInt();
+                                        productoE1.setCantidad(idNum2);
+
+                                        nuevaTienda.comprarProducto(productoE1);
+
+                                        break;
+                                case 2:
+
+                                        System.out.println("Cerrando venta y terminando...");
+                                        break;
+                                default:
+                                        System.out.println("Opción inválida. Por favor, elija una opción válida.");
+                                        break;
+                        }
+                } while (opcion != 2);
+
                 System.out.println("\n\n\n\n\n\n\n\n\n\nSe creara una nueva tiendan\n");
-                Tienda nuevaTienda2 = new Tienda();
+
                 nuevaTienda2.setNombre("Tienda2");
                 nuevaTienda2.setCantidad(50l);
                 nuevaTienda2.setSaldoEnCaja(1000d);
@@ -134,19 +219,15 @@ public class App {
                  */
                 System.out.println(
                                 "\n\n\n\nComenzando pruebas.\nIngrese un numero para continuar y proceder a realizar una venta");
-                Scanner entrada = new Scanner(System.in);
-                Scanner entrada2 = new Scanner(System.in);
-                Scanner scanner = new Scanner(System.in);
+
                 entrada.nextInt();
                 System.out.println("\n\n");
                 nuevaTienda2.verTienda();
-                Venta nuevaVenta_ = new Venta();
+
                 nuevaTienda2.setNuevaVenta(nuevaVenta_);
 
-                int opcion;
-                int contadorVentas = 0;
                 do {
-                        System.out.println("\n\nMenu:");
+                        System.out.println("\n\nMenu para ventas:");
                         System.out.println("1 - Ingresar un producto a la venta");
                         System.out.println("2 - Cerrar Venta y terminar");
                         System.out.print("Ingrese una opcion: ");
