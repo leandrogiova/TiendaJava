@@ -95,6 +95,7 @@ public class Venta implements InterfaceVenta {
                         + " x " + this.productos[i].getPrecio());
             }
         }
+        System.out.println("\nTOTAL VENTA: " + getPrecio());
     }
 
     /*
@@ -117,23 +118,25 @@ public class Venta implements InterfaceVenta {
     /*
      * 
      */
-    public Boolean agregarUnProductoALaVenta(Producto p1, Map<String, Producto> inventario) {
+    public void agregarUnProductoALaVenta(Producto p1, Map<String, Producto> inventario) {
+
         if (inventario.isEmpty()) {
             System.out.println("El inventario esta vacio");
-            return false;
+
         } else {
             // valido que no se compren mas de 10 productos
             if (p1.getCantidad() <= CANTIDAD_DE_PRODUCTOS_EL_MISMO_TIPO) {
-                p1 = buscarProductoEnInventario(p1, inventario);
-                agregarProducto_A_Productos(p1);// agega un producto a this.productos en la posicion que corresponde
-                this.precio = this.precio + (p1.getPrecio() * p1.getCantidad());
+                Producto p2 = buscarProductoEnInventario(p1, inventario);
+                if (p2 != null) {
+                    agregarProducto_A_Productos(p2);// agega un producto a this.productos en la posicion que corresponde
+                    this.precio = this.precio + (p2.getPrecio() * p2.getCantidad());
 
-                return true;
+                }
+
             }
 
             else {
-                System.out.println("No se pueden comprar mas de" + CANTIDAD_DE_PRODUCTOS_EL_MISMO_TIPO + "productos");
-                return false;
+                System.out.println("No se pueden comprar mas de " + CANTIDAD_DE_PRODUCTOS_EL_MISMO_TIPO + " productos");
             }
         }
 
@@ -143,9 +146,14 @@ public class Venta implements InterfaceVenta {
      * 
     */
     public void agregarProducto_A_Productos(Producto producto) {
+
+        System.out.println("Viendo productos");
+        verProductos();
+
         for (int i = 0; i < CANTIDAD_PRODUCTOS_A_VENDER; i++) {
             if (getProductos()[i] == null) {
-                this.productos[i] = producto;
+                getProductos()[i] = producto;
+                System.out.println("producto: desc:" + getProductos()[i].getDescripcion());
                 break;
             }
         }
@@ -156,25 +164,59 @@ public class Venta implements InterfaceVenta {
      * 
      */
     public Producto buscarProductoEnInventario(Producto p1, Map<String, Producto> inventario) {
+
         // valido que no quiera comprar mas de los productos que haya en stock
         for (Map.Entry<String, Producto> entry : inventario.entrySet()) {
+            System.out
+                    .println("\np1:\n" + "id: " + p1.getIdentificadorAbstracto() + ", cannntidad: " + p1.getCantidad());
+            System.out.println("\nDel inventario: " + "ident: " + entry.getValue().getIdentificadorAbstracto()
+                    + ", inventarioCantidad: " + entry.getValue().getCantidad());
+
             String clave = entry.getKey();
             Producto producto = entry.getValue();
 
             if (clave.equals(p1.getIdentificadorAbstracto())) {
+
+                System.out.println("\n2---p1:\n" + "id: " + p1.getIdentificadorAbstracto() + ", cannntidad: "
+                        + p1.getCantidad());
+                System.out.println("\n2---Del inventario: " + "ident: " + entry.getValue().getIdentificadorAbstracto()
+                        + ", inventarioCantidad: " + entry.getValue().getCantidad());
+
                 // encontre mi producto en el inventario
-                if (producto.getCantidad() == 0) {
+                if ((producto.getCantidad()) == 0) {
+                    System.out.println("\n3---p1:\n" + "id: " + p1.getIdentificadorAbstracto() + ", cannntidad: "
+                            + p1.getCantidad());
+                    System.out
+                            .println("\n3---Del inventario: " + "ident: " + entry.getValue().getIdentificadorAbstracto()
+                                    + ", inventarioCantidad: " + entry.getValue().getCantidad());
+
                     System.out.println("El Producto " + p1.getIdentificadorAbstracto() + p1.getDescripcion()
-                            + "no se encuentra disponible");
+                            + " no se encuentra disponible");
                     return null;
                 } else {
-                    if (producto.getCantidad() < p1.getCantidad()) {
+                    System.out.println("\n4---p1:\n" + "id: " + p1.getIdentificadorAbstracto() + ", cannntidad: "
+                            + p1.getCantidad());
+                    System.out
+                            .println("\n4---Del inventario: " + "ident: " + entry.getValue().getIdentificadorAbstracto()
+                                    + ", inventarioCantidad: " + entry.getValue().getCantidad());
+                    System.out.println(
+                            "\n\nproducto.getcantidad:" + p1.getCantidad() + "  p1.getCantidad()" + p1.getCantidad());
+
+                    if ((p1.getCantidad()) < (entry.getValue().getCantidad())) {
+
+                        System.out.println("\n5---p1:\n" + "id: " + p1.getIdentificadorAbstracto() + ", cannntidad: "
+                                + p1.getCantidad());
+                        System.out
+                                .println("\n5---Del inventario: " + "ident: "
+                                        + entry.getValue().getIdentificadorAbstracto()
+                                        + ", inventarioCantidad: " + entry.getValue().getCantidad());
+
                         System.out.println("Hay productos con stock disponible menor al solicitado");
 
                         p1.setCantidad(producto.getCantidad());
                         return p1;
                     } else {
-                        System.out.println("Agregando Producto a la venta...");
+                        System.out.println("1-------------Agregando Producto a la venta...");
                         return p1;
                     }
                 }

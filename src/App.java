@@ -182,7 +182,7 @@ public class App {
                                 1500);
                 ProductoLimpieza productoL10 = new ProductoLimpieza(001, "Lavandina 1L", 8.50f, 7.50f, 5, (byte) 3);
 
-                ProductoEnvasado productoE10 = new ProductoEnvasado(001, "Arroz 1kg", 12.4f, 10.0f, 5, (byte) 1, true,
+                ProductoEnvasado productoE10 = new ProductoEnvasado(001, "Arroz 1kg", 12.4f, 10.0f, 17, (byte) 1, true,
                                 fecha1, 1500);
 
                 nuevaTienda2.getInventario().put(productoB10.getIdentificadorAbstracto(), productoB10);
@@ -196,25 +196,48 @@ public class App {
                 entrada.nextInt();
                 System.out.println("\n\n");
                 nuevaTienda2.verTienda();
+                Venta nuevaVenta_ = new Venta();
+                nuevaTienda2.setNuevaVenta(nuevaVenta_);
                 //////////////////
                 System.out.println(
                                 "\n\nIngrese una opcion: \n1-Para ingresar una nueva Venta.\n2-Para agregar un producto a una venta.\n3-Para cerrar una venta");
                 int opcion = entrada.nextInt();
                 if (opcion == 1) {
-                        if (nuevaTienda2.getNuevaVenta() == null) {
+                        if (nuevaTienda2.getNuevaVenta().getProductos().length == 3) {
                                 System.out.println(
                                                 "Vamos a ingresar una nueva venta..\nPuede escoger un producto de la siguiete lista.(Muy importante!) Ingrese exactamente el numero de identificador del producto");
                                 nuevaTienda2.verInventario();
                                 System.out.print("Ingrese el identificador del producto: ");
                                 String nuevoIdem = entrada2.nextLine();
-                                System.out.println("nuevoIdem: " + nuevoIdem);
+
                                 System.out.println(
                                                 "Ingrese la cantidad de producto que quiere comprar(maximo 10 producto): ");
-                                Integer cantidad = entrada.nextInt();
-                                System.out.println("cantidad: " + cantidad);
+                                Integer cant55 = entrada.nextInt();
 
                                 Producto producto_A_Vender = nuevaTienda2.encontrarProducto(nuevoIdem);
-                                nuevaTienda2.realizarVenta(producto_A_Vender);
+                                System.out.println("\n\nMAin.Producto_A_Vender:\nid:"
+                                                + producto_A_Vender.getIdentificadorAbstracto()
+                                                + "cantidad: " + producto_A_Vender.getCantidad());
+
+                                if (producto_A_Vender == null) {
+                                        System.out.println("No se encontro al producto");
+                                } else {
+                                        producto_A_Vender.setCantidad(cant55);
+                                        System.out.println("Seteando cnatidad: " + producto_A_Vender.getCantidad());
+
+                                        System.out.println("\n\n2-----MAin.Producto_A_Vender:\nid:"
+                                                        + producto_A_Vender.getIdentificadorAbstracto()
+                                                        + "cantidad: " + producto_A_Vender.getCantidad());
+
+                                        nuevaTienda2.realizarVenta(producto_A_Vender);
+                                        nuevaTienda2.verInventario();
+                                        nuevaTienda2.getNuevaVenta().verDetalleDeLaVenta();
+                                        ////////////////////////////////////////////////////////
+                                        ////////////////////////////////////////////////////////
+                                        System.out.println(
+                                                        "2-Para ingresar otro producto.\n3-Para cerrar la venta\nIngrese una opcion: ");
+                                        opcion = entrada.nextInt();
+                                }
 
                         } else {
                                 System.out.println("Ya hay una venta iniciada. Puede agregar un producto a la venta\n"
@@ -224,6 +247,34 @@ public class App {
                 }
                 if (opcion == 2) {
                         System.out.println("Agregando un producto a la venta");
+
+                        System.out.print("Ingrese el identificador del producto: ");
+                        String nuevoIdem = entrada2.nextLine();
+
+                        System.out.println(
+                                        "Ingrese la cantidad de producto que quiere comprar(maximo 10 producto): ");
+                        Integer cant55 = entrada.nextInt();
+
+                        Producto producto_A_Vender = nuevaTienda2.encontrarProducto(nuevoIdem);
+                        System.out.println("\n\nMAin.Producto_A_Vender:\nid:"
+                                        + producto_A_Vender.getIdentificadorAbstracto()
+                                        + "cantidad: " + producto_A_Vender.getCantidad());
+
+                        if (producto_A_Vender == null) {
+                                System.out.println("No se encontro al producto");
+                        } else {
+                                producto_A_Vender.setCantidad(cant55);
+                                System.out.println("Seteando cnatidad: " + producto_A_Vender.getCantidad());
+
+                                System.out.println("\n\n2-----MAin.Producto_A_Vender:\nid:"
+                                                + producto_A_Vender.getIdentificadorAbstracto()
+                                                + "cantidad: " + producto_A_Vender.getCantidad());
+
+                                nuevaTienda2.realizarVenta(producto_A_Vender);
+                                nuevaTienda2.verInventario();
+                                nuevaTienda2.getNuevaVenta().verDetalleDeLaVenta();
+                        }
+
                 }
                 if (opcion == 3) {
                         System.out.println("Cerrando venta");
