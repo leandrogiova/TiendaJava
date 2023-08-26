@@ -9,6 +9,7 @@ public class ProductoEnvasado extends Producto implements InterfaceFuncionesProd
 
     public static String NOMBRE_CATEGORIA_ENVASADO = "AB";
     public static String[] TIPO_DE_ENVASE = { "PLASTICO", "VIDRIO", "LATA", };
+    public static Float PORCENTAJE_MAXIMO_DE_ENVASADO = 20.0f;
 
     private String tipoEnvase;
     private Boolean importado;
@@ -85,13 +86,49 @@ public class ProductoEnvasado extends Producto implements InterfaceFuncionesProd
     }
 
     @Override
-    public Integer getDescuento() {
+    public Float getDescuento() {
         return null;
     }
 
     @Override
     public void setDescuento(Integer descuento) {
 
+    }
+
+    @Override
+    public void verProduto(Producto p) {
+        ProductoEnvasado productoEnvasado = (ProductoEnvasado) p;
+
+        System.out.println("\nViendo producto\n"
+                + "id: " + productoEnvasado.getIdentificadorAbstracto()
+                + ",   " + productoEnvasado.getDescripcion()
+                + ",  precio: " + productoEnvasado.getPrecio()
+                + ",  costoPorUnidad: " + productoEnvasado.getCostoPorUnidad()
+                + ", cant: " + productoEnvasado.getCantidad()
+                + ",  tipoEn: " + productoEnvasado.getTipoEnvase()
+                + ", importado: " + productoEnvasado.getImportado()
+                + ", fecha: " + productoEnvasado.getFechaVencimiento()
+                + ",  descuentoEn%: " + productoEnvasado.getDescuento()
+
+        );
+
+    }
+
+    @Override
+    public void setearGanacia(Float precioProducto, Float porcentaje) {
+        if (porcentaje < PORCENTAJE_MAXIMO_DE_ENVASADO) {
+
+            Float porcent = precioProducto * (porcentaje / 100);// Calcula la ganancia en base al porcentaje
+            Float gananc = porcent + precioProducto;
+            setPrecio(gananc); // Suma la ganancia al precio original
+            System.out.println("precio con ganancia: " + getPrecio());
+            if (getImportado()) {
+                porcentaje = 10f;
+            }
+
+        } else {
+            System.out.println("El porcentaje de ganacia no puede ser mayor a " + PORCENTAJE_MAXIMO_DE_ENVASADO);
+        }
     }
 
 }

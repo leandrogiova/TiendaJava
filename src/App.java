@@ -43,8 +43,21 @@ public class App {
                 ProductoBebida productoB8 = new ProductoBebida(8, "Fanta", 20.0f, 18.0f, 10, false, 0f, false, fecha1,
                                 1500);
 
+                /*
+                 * 
+                 * 
+                 * 
+                 * 
+                 */
                 // Probando funcion setearGanancia
+
+                productoB1.setCostoPorUnidad(100f);
                 productoB1.setearGanacia(productoB1.getCostoPorUnidad(), 50f);
+
+                System.out.println("Probando clases de setearGanancia");
+                ProductoBebida productoB20 = new ProductoBebida(8, "Fanta", 20.0f, 0f, 10, false, 0f, false, fecha1,
+                                1500);
+                productoB20.setearGanacia(productoB20.getCostoPorUnidad(), 10f);
 
                 System.out.println("Producto: \nidentificador:" +
                                 productoB1.getIdentificadorAbstracto()

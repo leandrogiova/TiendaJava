@@ -10,6 +10,7 @@ public abstract class Producto {
     private Float precio;
     private Float costoPorUnidad;
     private Integer cantidad;
+    private Float descuento;
 
     /*
      * En el constructor Producto no se setea el campo identificador ya que lo setea
@@ -81,6 +82,14 @@ public abstract class Producto {
 
     public void setCantidad(Integer cantidad) {
         this.cantidad = cantidad;
+    }
+
+    public Float getDescuento() {
+        return descuento;
+    }
+
+    public void setDescuento(Float descuento) {
+        this.descuento = descuento;
     }
 
     public String getDescripcion() {

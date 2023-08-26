@@ -8,6 +8,7 @@ import funcionesProductos.InterfaceFuncionesProductos;
 public class ProductoBebida extends Producto implements InterfaceFuncionesProductos, FuncionesDescuento {
 
     public static String NOMBRE_CATEGORIA_BEBIDA = "AC";
+    public static Float PORCENTAJE_MAXIMO_DE_BEBIDA = 15.0f;
 
     private Boolean alcoholica;
     private Float porcentajeDeAlcohol;
@@ -92,13 +93,43 @@ public class ProductoBebida extends Producto implements InterfaceFuncionesProduc
     }
 
     @Override
-    public Integer getDescuento() {
+    public Float getDescuento() {
         return null;
     }
 
     @Override
     public void setDescuento(Integer descuento) {
 
+    }
+
+    @Override
+    public void setearGanacia(Float precioProducto, Float porcentaje) {
+        if (porcentaje < PORCENTAJE_MAXIMO_DE_BEBIDA) {
+
+            Float porcent = precioProducto * (porcentaje / 100);// Calcula la ganancia en base al porcentaje
+            Float gananc = porcent + precioProducto;
+            setPrecio(gananc); // Suma la ganancia al precio original
+
+        } else {
+            System.out.println("El porcentaje de ganacia no puede ser mayor a " + PORCENTAJE_MAXIMO_DE_BEBIDA);
+        }
+    }
+
+    @Override
+    public void verProduto(Producto p) {
+        ProductoBebida producto = (ProductoBebida) p;
+
+        System.out.println("\nViendo producto\n"
+                + "id: " + producto.getIdentificadorAbstracto()
+                + ",   " + producto.getDescripcion()
+                + ",  precio: " + producto.getPrecio()
+                + ",  costoPorUnidad: " + producto.getCostoPorUnidad()
+                + ", cant: " + producto.getCantidad()
+                + ", fecha: " + producto.getFechaVencimiento()
+                + ",  descuentoEn%: " + producto.getDescuento()
+                + ", importado: " + producto.getImportado()
+                + ", alcoholica: " + producto.getAlcoholica()
+                + ",  porcentajeAlcohol%: " + producto.getPorcentajeDeAlcohol());
     }
 
 }
