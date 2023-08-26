@@ -198,10 +198,10 @@ public class Tienda {
     }
 
     /*
-     * 
+     * Realiza una venta, agregando un producto a la lista de productos de una venta
+     * Recibe como parametro
      */
     public void realizarVenta(Producto producto) {
-        // this.nuevaVenta = new Venta();
         this.nuevaVenta.setId(1l);
 
         nuevaVenta.agregarUnProductoALaVenta(producto, getInventario());

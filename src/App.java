@@ -14,31 +14,7 @@ public class App {
         public static void main(String[] args) throws Exception {
 
                 System.out.println("Creando clase Productos...");
-                /*
-                 * ProductoEnvasado product1 = new ProductoEnvasado(10, "Cafe 120gr", 12.5f,
-                 * 10.5f, 10, (byte) 1, true);
-                 * System.out.println("Producto: \nidentificador:" +
-                 * product1.getIdentificadorABstracto() + ",  descripcion:"
-                 * + product1.getDescripcion() + ",  precio: " + product1.getPrecio() +
-                 * ", costoPorUnidad:"
-                 * + product1.getCostoPorUnidad() + ",  cantiddad: " + product1.getCantidad() +
-                 * ", tipoEnvase:  "
-                 * + product1.getTipoEnvase() + ", importado: " + product1.getImportado() +
-                 * "\n\n\n");
-                 */
 
-                /*
-                 * ProductoBebida product2 = new ProductoBebida(05, "Coca-Cola 500ml", 2.50f,
-                 * 2.00f, 50, false, 0f, true);
-                 * System.out.println("Producto: \nidentificador:" +
-                 * product2.getIdentificadorABstracto()
-                 * + ",  descripcion:" + product2.getDescripcion()
-                 * + ",  precio: " + product2.getPrecio()
-                 * + ", costoPorUnidad:" + product2.getCostoPorUnidad() +
-                 * ",  cantiddad: " + product2.getCantidad()
-                 * + ", porcentajeDeAlcohol:  " + product2.getPorcentajeDeAlcohol()
-                 * + ", importado: " + product2.getImportado() + "\n\n\n");
-                 */
                 Date fecha1 = new Date(123, 10, 1);
                 ProductoBebida productoB1 = new ProductoBebida(001, "Coca-Cola 500ml", 20.0f, 500.0f, 50, false, 0f,
                                 true, fecha1, 1500);
@@ -71,7 +47,6 @@ public class App {
                                 + ", porcentajeDeAlcohol:  " + productoB1.getPorcentajeDeAlcohol()
                                 + ", importado: " + productoB1.getImportado() + "\n\n\n");
 
-                /////////////////////////////////////////
                 ProductoEnvasado productoE1 = new ProductoEnvasado(001, "Arroz 1kg", 12.4f, 10.0f, 5, (byte) 1, true,
                                 fecha1, 1500);
                 ProductoEnvasado productoE2 = new ProductoEnvasado(002, "Fideo Largos 1kg", 8.4f, 7f, 10, (byte) 1,
@@ -104,16 +79,6 @@ public class App {
                 ProductoLimpieza productoL8 = new ProductoLimpieza(8, "Detergente para la ropa 1l", 40f, 38f, 2,
                                 (byte) 2);
 
-                // Al agregar un producto al Map revisar que ni haya un identificador igual al
-                // otro
-                /*
-                 * 
-                 * 
-                 * 
-                 * 
-                 * 
-                 * 
-                 */
                 Tienda nuevaTienda = new Tienda();
                 nuevaTienda.setNombre("TiendaLeandrooooou");
                 nuevaTienda.setCantidad(1500l);
@@ -145,32 +110,6 @@ public class App {
                 nuevaTienda.getInventario().put(productoL6.getIdentificadorAbstracto(), productoL6);
                 nuevaTienda.getInventario().put(productoL7.getIdentificadorAbstracto(), productoL7);
                 nuevaTienda.getInventario().put(productoL8.getIdentificadorAbstracto(), productoL8);
-                // nuevaTienda.verInventario();
-                /*
-                 * 
-                 * 
-                 * 
-                 * 
-                 * 
-                 */
-                // TODO Auto-generated method stub
-                // CUANDO YO INTENTE GUARDAR OTRO ELEMENTO IGUAL CON LA MISMA KEY SE DEBE SUMAR
-                // LAS CANTIDADES Y SI LOS PRECIOS SON DIFERENTES SE GUARDA EL PRECIO NUEVO COMO
-                // HACE UN HasMap por defecto
-                // ADEMAS AGREGAR LAS FUNCIONES MODIFICAR, Y ELIMINAR
-                // MODIFICAR UNA TIENDA
-                // BUSCAR UN PRODUCTO DEL INVENTARIO
-                // BUSCAR TODOS LOS PRODUCTOS DE BEBIDA DEL INVENTARIO, o todos los de limpieza
-                // o todos los de envasados
-                // eliminar un producto del inventario
-
-                // ProductoEnvasado productoE10 = new ProductoEnvasado(45, "Arroz 1kg", 15f,
-                // 15.0f, 100, (byte) 0, true,
-
-                ////////////////////////
-                // fecha1, 1500);
-                // nuevaTienda2.comprarProducto(productoE10);
-                // nuevaTienda2.comprarProducto(productoE10);
 
                 System.out.println("\n\n\n\n\n\n\n\n\n\nSe creara una nueva tiendan\n");
                 Tienda nuevaTienda2 = new Tienda();
@@ -188,97 +127,78 @@ public class App {
                 nuevaTienda2.getInventario().put(productoB10.getIdentificadorAbstracto(), productoB10);
                 nuevaTienda2.getInventario().put(productoL10.getIdentificadorAbstracto(), productoL10);
                 nuevaTienda2.getInventario().put(productoE10.getIdentificadorAbstracto(), productoE10);
-
+                /*
+                 * 
+                 * Probando Ventas
+                 * 
+                 */
                 System.out.println(
                                 "\n\n\n\nComenzando pruebas.\nIngrese un numero para continuar y proceder a realizar una venta");
                 Scanner entrada = new Scanner(System.in);
                 Scanner entrada2 = new Scanner(System.in);
+                Scanner scanner = new Scanner(System.in);
                 entrada.nextInt();
                 System.out.println("\n\n");
                 nuevaTienda2.verTienda();
                 Venta nuevaVenta_ = new Venta();
                 nuevaTienda2.setNuevaVenta(nuevaVenta_);
-                //////////////////
-                System.out.println(
-                                "\n\nIngrese una opcion: \n1-Para ingresar una nueva Venta.\n2-Para agregar un producto a una venta.\n3-Para cerrar una venta");
-                int opcion = entrada.nextInt();
-                if (opcion == 1) {
-                        if (nuevaTienda2.getNuevaVenta().getProductos().length == 3) {
-                                System.out.println(
-                                                "Vamos a ingresar una nueva venta..\nPuede escoger un producto de la siguiete lista.(Muy importante!) Ingrese exactamente el numero de identificador del producto");
-                                nuevaTienda2.verInventario();
-                                System.out.print("Ingrese el identificador del producto: ");
-                                String nuevoIdem = entrada2.nextLine();
 
-                                System.out.println(
-                                                "Ingrese la cantidad de producto que quiere comprar(maximo 10 producto): ");
-                                Integer cant55 = entrada.nextInt();
+                int opcion;
+                int contadorVentas = 0;
+                do {
+                        System.out.println("\n\nMenu:");
+                        System.out.println("1 - Ingresar un producto a la venta");
+                        System.out.println("2 - Cerrar Venta y terminar");
+                        System.out.print("Ingrese una opcion: ");
 
-                                Producto producto_A_Vender = nuevaTienda2.encontrarProducto(nuevoIdem);
-                                System.out.println("\n\nMAin.Producto_A_Vender:\nid:"
-                                                + producto_A_Vender.getIdentificadorAbstracto()
-                                                + "cantidad: " + producto_A_Vender.getCantidad());
+                        opcion = scanner.nextInt();
 
-                                if (producto_A_Vender == null) {
-                                        System.out.println("No se encontro al producto");
-                                } else {
-                                        producto_A_Vender.setCantidad(cant55);
-                                        System.out.println("Seteando cnatidad: " + producto_A_Vender.getCantidad());
+                        switch (opcion) {
+                                case 1:
+                                        if (contadorVentas < 3) {
+                                                // Lógica para ingresar un producto a la venta
+                                                System.out.println("Ingresando producto a la venta...");
+                                                nuevaTienda2.verInventario();
+                                                System.out.print(
+                                                                "Ingrese el identificador del producto: EXACTAMENTE IGUAL(por ejemplo: 'AB001'):     ");
+                                                String nuevoIdem = entrada2.nextLine();
 
-                                        System.out.println("\n\n2-----MAin.Producto_A_Vender:\nid:"
-                                                        + producto_A_Vender.getIdentificadorAbstracto()
-                                                        + "cantidad: " + producto_A_Vender.getCantidad());
+                                                System.out.println(
+                                                                "Ingrese la cantidad de producto que quiere comprar(maximo 10 producto): ");
+                                                Integer cant55 = entrada.nextInt();
+                                                Producto producto_A_Vender = nuevaTienda2.encontrarProducto(nuevoIdem);
 
-                                        nuevaTienda2.realizarVenta(producto_A_Vender);
-                                        nuevaTienda2.verInventario();
-                                        nuevaTienda2.getNuevaVenta().verDetalleDeLaVenta();
-                                        ////////////////////////////////////////////////////////
-                                        ////////////////////////////////////////////////////////
-                                        System.out.println(
-                                                        "2-Para ingresar otro producto.\n3-Para cerrar la venta\nIngrese una opcion: ");
-                                        opcion = entrada.nextInt();
-                                }
+                                                if (producto_A_Vender == null) {
+                                                        System.out.println("No se encontro al producto");
+                                                } else {
+                                                        producto_A_Vender.setCantidad(cant55);
 
-                        } else {
-                                System.out.println("Ya hay una venta iniciada. Puede agregar un producto a la venta\n"
-                                                + "2-Agregar un numero a la venta. 3-Para cerrar una venta");
-                                opcion = entrada.nextInt();
+                                                        nuevaTienda2.realizarVenta(producto_A_Vender);
+
+                                                        nuevaTienda2.getNuevaVenta().verDetalleDeLaVenta();
+                                                        contadorVentas++;
+                                                }
+
+                                        } else {
+                                                System.out.println("No puedes ingresar más productos a la venta.");
+                                                System.out.println("Cerrando venta y terminando...");
+                                                nuevaTienda2.cerrarVenta(nuevaVenta_);
+
+                                        }
+                                        break;
+                                case 2:
+                                        nuevaTienda2.cerrarVenta(nuevaVenta_);
+
+                                        System.out.println("Cerrando venta y terminando...");
+                                        break;
+                                default:
+                                        System.out.println("Opción inválida. Por favor, elija una opción válida.");
+                                        break;
                         }
-                }
-                if (opcion == 2) {
-                        System.out.println("Agregando un producto a la venta");
-
-                        System.out.print("Ingrese el identificador del producto: ");
-                        String nuevoIdem = entrada2.nextLine();
-
-                        System.out.println(
-                                        "Ingrese la cantidad de producto que quiere comprar(maximo 10 producto): ");
-                        Integer cant55 = entrada.nextInt();
-
-                        Producto producto_A_Vender = nuevaTienda2.encontrarProducto(nuevoIdem);
-                        System.out.println("\n\nMAin.Producto_A_Vender:\nid:"
-                                        + producto_A_Vender.getIdentificadorAbstracto()
-                                        + "cantidad: " + producto_A_Vender.getCantidad());
-
-                        if (producto_A_Vender == null) {
-                                System.out.println("No se encontro al producto");
-                        } else {
-                                producto_A_Vender.setCantidad(cant55);
-                                System.out.println("Seteando cnatidad: " + producto_A_Vender.getCantidad());
-
-                                System.out.println("\n\n2-----MAin.Producto_A_Vender:\nid:"
-                                                + producto_A_Vender.getIdentificadorAbstracto()
-                                                + "cantidad: " + producto_A_Vender.getCantidad());
-
-                                nuevaTienda2.realizarVenta(producto_A_Vender);
-                                nuevaTienda2.verInventario();
-                                nuevaTienda2.getNuevaVenta().verDetalleDeLaVenta();
-                        }
-
-                }
-                if (opcion == 3) {
-                        System.out.println("Cerrando venta");
-                }
-
+                } while (opcion != 2);
+                entrada.close();
+                entrada2.close();
+                scanner.close();
         }
+
 }

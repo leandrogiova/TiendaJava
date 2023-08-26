@@ -147,13 +147,12 @@ public class Venta implements InterfaceVenta {
     */
     public void agregarProducto_A_Productos(Producto producto) {
 
-        System.out.println("Viendo productos");
         verProductos();
 
         for (int i = 0; i < CANTIDAD_PRODUCTOS_A_VENDER; i++) {
             if (getProductos()[i] == null) {
                 getProductos()[i] = producto;
-                System.out.println("producto: desc:" + getProductos()[i].getDescripcion());
+
                 break;
             }
         }
@@ -167,56 +166,26 @@ public class Venta implements InterfaceVenta {
 
         // valido que no quiera comprar mas de los productos que haya en stock
         for (Map.Entry<String, Producto> entry : inventario.entrySet()) {
-            System.out
-                    .println("\np1:\n" + "id: " + p1.getIdentificadorAbstracto() + ", cannntidad: " + p1.getCantidad());
-            System.out.println("\nDel inventario: " + "ident: " + entry.getValue().getIdentificadorAbstracto()
-                    + ", inventarioCantidad: " + entry.getValue().getCantidad());
 
             String clave = entry.getKey();
             Producto producto = entry.getValue();
 
             if (clave.equals(p1.getIdentificadorAbstracto())) {
 
-                System.out.println("\n2---p1:\n" + "id: " + p1.getIdentificadorAbstracto() + ", cannntidad: "
-                        + p1.getCantidad());
-                System.out.println("\n2---Del inventario: " + "ident: " + entry.getValue().getIdentificadorAbstracto()
-                        + ", inventarioCantidad: " + entry.getValue().getCantidad());
-
                 // encontre mi producto en el inventario
                 if ((producto.getCantidad()) == 0) {
-                    System.out.println("\n3---p1:\n" + "id: " + p1.getIdentificadorAbstracto() + ", cannntidad: "
-                            + p1.getCantidad());
-                    System.out
-                            .println("\n3---Del inventario: " + "ident: " + entry.getValue().getIdentificadorAbstracto()
-                                    + ", inventarioCantidad: " + entry.getValue().getCantidad());
 
                     System.out.println("El Producto " + p1.getIdentificadorAbstracto() + p1.getDescripcion()
                             + " no se encuentra disponible");
                     return null;
                 } else {
-                    System.out.println("\n4---p1:\n" + "id: " + p1.getIdentificadorAbstracto() + ", cannntidad: "
-                            + p1.getCantidad());
-                    System.out
-                            .println("\n4---Del inventario: " + "ident: " + entry.getValue().getIdentificadorAbstracto()
-                                    + ", inventarioCantidad: " + entry.getValue().getCantidad());
-                    System.out.println(
-                            "\n\nproducto.getcantidad:" + p1.getCantidad() + "  p1.getCantidad()" + p1.getCantidad());
-
                     if ((p1.getCantidad()) < (entry.getValue().getCantidad())) {
-
-                        System.out.println("\n5---p1:\n" + "id: " + p1.getIdentificadorAbstracto() + ", cannntidad: "
-                                + p1.getCantidad());
-                        System.out
-                                .println("\n5---Del inventario: " + "ident: "
-                                        + entry.getValue().getIdentificadorAbstracto()
-                                        + ", inventarioCantidad: " + entry.getValue().getCantidad());
-
                         System.out.println("Hay productos con stock disponible menor al solicitado");
 
                         p1.setCantidad(producto.getCantidad());
                         return p1;
                     } else {
-                        System.out.println("1-------------Agregando Producto a la venta...");
+
                         return p1;
                     }
                 }
