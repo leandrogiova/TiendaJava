@@ -205,7 +205,7 @@ public class Tienda {
         this.nuevaVenta.setId(1l);
 
         nuevaVenta.agregarUnProductoALaVenta(producto, getInventario());
-
+        actualizarInventarioConProductoVendido(nuevaVenta.getProductos());
     }
 
     /*
@@ -214,7 +214,7 @@ public class Tienda {
     public void cerrarVenta(Venta venta) {
         this.saldoEnCaja = this.saldoEnCaja + venta.getPrecio();
 
-        // actualizarInventarioConProductoVendido(venta.getProductos());
+        actualizarInventarioConProductoVendido(venta.getProductos());
 
         verInventario();
         venta.verVenta();
@@ -238,6 +238,7 @@ public class Tienda {
                         int cantidad = entry.getValue().getCantidad();
                         cantidad = cantidad - productosVenta[i].getCantidad();
                         entry.getValue().setCantidad(cantidad);
+                        System.out.println("\n-123-Productos de la venta: " + entry.getValue().getCantidad());
                     }
                 }
 

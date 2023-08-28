@@ -50,7 +50,7 @@ public class App {
                  * 
                  */
                 // Probando funcion setearGanancia
-
+                // TODO probar los seteo de todas las clases
                 productoB1.setCostoPorUnidad(100f);
                 productoB1.setearGanacia(productoB1.getCostoPorUnidad(), 50f);
 
@@ -97,7 +97,7 @@ public class App {
 
                 ProductoLimpieza productoL7 = new ProductoLimpieza(007, "Espongita acero", 0.20f, 0.10f, 25,
                                 (byte) 3);
-                ProductoLimpieza productoL8 = new ProductoLimpieza(8, "Detergente para la ropa 1l", 40f, 38f, 2,
+                ProductoLimpieza productoL8 = new ProductoLimpieza(8, "Detergente para la ropa 1l", 40f, 38f, 7,
                                 (byte) 2);
 
                 Tienda nuevaTienda = new Tienda();
@@ -132,7 +132,65 @@ public class App {
                 nuevaTienda.getInventario().put(productoL7.getIdentificadorAbstracto(), productoL7);
                 nuevaTienda.getInventario().put(productoL8.getIdentificadorAbstracto(), productoL8);
 
+                ProductoLimpieza productvoL88 = new ProductoLimpieza(8, "Detergente para la ropa 1l", 40f, 38f, 2,
+                                (byte) 2);
+                Producto[] productos = new Producto[1];
+                productos[0] = productvoL88;
+                // Probando
+                nuevaTienda.verInventario();
+                nuevaTienda.actualizarInventarioConProductoVendido(productos);
+                System.out.println("\n\n\nPrueba Terminada\n\n\n");
                 /*
+                *
+                *
+                *
+                *
+                *
+                *
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
                  * 
                  * 
                  * 
@@ -156,6 +214,7 @@ public class App {
 
                         switch (opcion) {
                                 case 1:
+                                        // nuevaTienda.verTienda();
                                         System.out.println("Ingresando nuevo producto");
                                         System.out.print("Ingrese el tipo de producto:"
                                                         + "\n1-Producto Envasado(arroz, fideos, servilletas ,cafe ,aceite...)"
@@ -219,7 +278,7 @@ public class App {
                                 1500);
                 ProductoLimpieza productoL10 = new ProductoLimpieza(001, "Lavandina 1L", 8.50f, 7.50f, 5, (byte) 3);
 
-                ProductoEnvasado productoE10 = new ProductoEnvasado(001, "Arroz 1kg", 12.4f, 10.0f, 17, (byte) 1, true,
+                ProductoEnvasado productoE10 = new ProductoEnvasado(001, "Arroz 1kg", 12.4f, 10.0f, 0, (byte) 1, true,
                                 fecha1, 1500);
 
                 nuevaTienda2.getInventario().put(productoB10.getIdentificadorAbstracto(), productoB10);

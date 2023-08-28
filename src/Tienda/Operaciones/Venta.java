@@ -63,59 +63,6 @@ public class Venta implements InterfaceVenta {
     }
 
     /*
-     * Muestra todos los campos para controlar el estado de la venta
-     */
-    public void verVenta() {
-        System.out.println("\n\nViendo venta... "
-                + "id: " + this.id + "fecha: " + this.fecha
-                + "precio: " + this.precio);
-        System.out.println("\nProductos: ");
-        for (int i = 0; i < CANTIDAD_PRODUCTOS_A_VENDER; i++) {
-
-            if (this.productos[i] != null) {
-                System.out.println("identificador: " + this.productos[i].getIdentificadorAbstracto()
-                        + ", descripcion: " + this.productos[i].getDescripcion()
-                        + ", precio: " + this.productos[i].getPrecio()
-                        + ", costopor unidad:" + this.productos[i].getCostoPorUnidad()
-                        + ", cantidad:  " + this.productos[i].getCantidad());
-            }
-        }
-    }
-
-    /*
-     * Muestra los campos importantes de la manera solicitada
-     */
-    public void verDetalleDeLaVenta() {
-        System.out.println("Detalle de la venta:");
-        for (int i = 0; i < CANTIDAD_PRODUCTOS_A_VENDER; i++) {
-
-            if (this.productos[i] != null) {
-                System.out.println(this.productos[i].getIdentificadorAbstracto() + " "
-                        + this.productos[i].getDescripcion() + " " + this.productos[i].getCantidad()
-                        + " x " + this.productos[i].getPrecio());
-            }
-        }
-        System.out.println("\nTOTAL VENTA: " + getPrecio());
-    }
-
-    /*
-     * 
-     */
-    public void verProductos() {
-        System.out.println("\nProductos: ");
-        for (int i = 0; i < CANTIDAD_PRODUCTOS_A_VENDER; i++) {
-
-            if (this.productos[i] != null) {
-                System.out.println("identificador: " + this.productos[i].getIdentificadorAbstracto()
-                        + ", descripcion: " + this.productos[i].getDescripcion()
-                        + ", precio: " + this.productos[i].getPrecio()
-                        + ", costopor unidad:" + this.productos[i].getCostoPorUnidad()
-                        + ", cantidad:  " + this.productos[i].getCantidad());
-            }
-        }
-    }
-
-    /*
      * Funcion agregarUnProductoALaVenta
      */
     public void agregarUnProductoALaVenta(Producto p1, Map<String, Producto> inventario) {
@@ -126,6 +73,7 @@ public class Venta implements InterfaceVenta {
             // valido que no se compren mas de 10 productos
             if (p1.getCantidad() <= CANTIDAD_DE_PRODUCTOS_EL_MISMO_TIPO) {
                 Producto p2 = buscarProductoEnInventario(p1, inventario);
+                System.out.println("\n\np2: " + p2.getCantidad());
                 if (p2 != null) {
                     agregarProducto_A_Productos(p2);// agega un producto a this.productos en la posicion que corresponde
                     this.precio = this.precio + (p2.getPrecio() * p2.getCantidad());
@@ -174,38 +122,173 @@ public class Venta implements InterfaceVenta {
      */
     public Producto buscarProductoEnInventario(Producto p1, Map<String, Producto> inventario) {
 
-        // valido que no quiera comprar mas de los productos que haya en stock
         for (Map.Entry<String, Producto> entry : inventario.entrySet()) {
 
-            String clave = entry.getKey();
             Producto producto = entry.getValue();
+            int i = 0;
+            System.out.println("i:" + i + "producto.cantidad: " + producto.getCantidad());
+            i++;
+        }
+        return p1;
 
-            if (clave.equals(p1.getIdentificadorAbstracto())) {
+        /*
+         * 
+         * // valido que no quiera comprar mas de los productos que haya en stock
+         * for (Map.Entry<String, Producto> entry : inventario.entrySet()) {
+         * 
+         * String clave = entry.getKey();
+         * Producto producto = entry.getValue();
+         * 
+         * System.out.println("1--> p1.cantidad: " + p1.getCantidad() +
+         * "inventario.p.cantidad: "
+         * + producto.getCantidad());
+         * 
+         * if (clave.equals(p1.getIdentificadorAbstracto())) {
+         * 
+         * // encontre mi producto en el inventario
+         * if ((producto.getCantidad()) == 0) {
+         * 
+         * System.out.println("El Producto " + p1.getIdentificadorAbstracto() +
+         * p1.getDescripcion()
+         * + " no se encuentra disponible");
+         * return null;
+         * } else {
+         * if ((p1.getCantidad()) < (entry.getValue().getCantidad())) {
+         * System.out.println("Hay productos con stock disponible menor al solicitado");
+         * 
+         * p1.setCantidad(producto.getCantidad());
+         * return p1;
+         * } else {
+         * 
+         * return p1;
+         * }
+         * }
+         * 
+         * }
+         * }
+         * System.out.println(
+         * "El producto " + p1.getIdentificadorAbstracto() + p1.getDescripcion() +
+         * "no se encuentra disponible");
+         * return null;
+         */
+    }
 
-                // encontre mi producto en el inventario
-                if ((producto.getCantidad()) == 0) {
+    /*
+     * Recibe un Producto y setea el descuento
+     */
+    public void agregarDescuento(Producto p1, Float descuento) {
 
-                    System.out.println("El Producto " + p1.getIdentificadorAbstracto() + p1.getDescripcion()
-                            + " no se encuentra disponible");
-                    return null;
-                } else {
-                    if ((p1.getCantidad()) < (entry.getValue().getCantidad())) {
-                        System.out.println("Hay productos con stock disponible menor al solicitado");
-
-                        p1.setCantidad(producto.getCantidad());
-                        return p1;
-                    } else {
-
-                        return p1;
-                    }
-                }
-
+        if (productoEsProductoEnvasado(p1)) {
+            if (descuento > ProductoEnvasado.getDESCUENTO_MAXIMO_PRODT_ENVASADO()) {
+                // TODO seguir aca
             }
         }
-        System.out.println(
-                "El producto " + p1.getIdentificadorAbstracto() + p1.getDescripcion() + "no se encuentra disponible");
-        return null;
 
+        // if (productoEsProductoBebida(p1)) {
+        // if (ProductoLimpieza)
+        /*
+         * char[] clave = p1.getIdentificadorAbstracto().toCharArray();
+         * if (clave[0] == 'A' && clave[1] == 'B') { // producto envasado
+         * ProductoEnvasado producto = (ProductoEnvasado) p1;
+         * if (descuento > ProductoEnvasado.getDESCUENTO_MAXIMO_PRODT_ENVASADO()) {
+         * System.out.
+         * println("En productos de Envasados el descuento no puede ser mayor al 20%");
+         * } else {
+         * System.out.println("\n\nprecioProducto: " + producto.getPrecio() +
+         * "\ndescuento: " + descuento);
+         * Float des = producto.getPrecio() - (producto.getPrecio() * (descuento /
+         * 100));
+         * System.out.println("\n\ndescuento: " + des);
+         * 
+         * }
+         * }
+         * if (clave[0] == 'A' && clave[1] == 'C')
+         * 
+         * {// producto bebida
+         * ProductoBebida producto = (ProductoBebida) p1;
+         * }
+         * if (clave[0] == 'A' && clave[1] == 'Z') { // producto limpieza
+         * ProductoLimpieza producto = (ProductoLimpieza) p1;
+         * }
+         */
+
+    }
+
+    /*
+     * funcion productoEsProductoEnvasado
+     * Recibe un Producto y verifica si el producto es un producto Envasado
+     * Hace esto verificando el tipo de identificador
+     * Recibe como parametro un Producto
+     * Retorna True si es un productoEnvasado
+     */
+    public Boolean productoEsProductoEnvasado(Producto producto) {
+        char[] clave1 = producto.getIdentificadorAbstracto().toCharArray();
+        char[] claveProductoE = ProductoEnvasado.getNOMBRE_CATEGORIA_ENVASADO().toCharArray();
+        Boolean sonIguales = true;
+        for (int i = 0; i < claveProductoE.length; i++) {
+            if (clave1.length <= i || clave1[i] != claveProductoE[i]) {
+                sonIguales = false;
+                break;
+            }
+        }
+        if (sonIguales) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /*
+     * Muestra los campos importantes de la manera solicitada
+     */
+    public void verDetalleDeLaVenta() {
+        System.out.println("Detalle de la venta:");
+        for (int i = 0; i < CANTIDAD_PRODUCTOS_A_VENDER; i++) {
+
+            if (this.productos[i] != null) {
+                System.out.println(this.productos[i].getIdentificadorAbstracto() + " "
+                        + this.productos[i].getDescripcion() + " " + this.productos[i].getCantidad()
+                        + " x " + this.productos[i].getPrecio());
+            }
+        }
+        System.out.println("\nTOTAL VENTA: " + getPrecio());
+    }
+
+    /*
+     * Muestra los productos almacenados en this.productos del campo Venta
+     */
+    public void verProductos() {
+        System.out.println("\nProductos: ");
+        for (int i = 0; i < CANTIDAD_PRODUCTOS_A_VENDER; i++) {
+
+            if (this.productos[i] != null) {
+                System.out.println("identificador: " + this.productos[i].getIdentificadorAbstracto()
+                        + ", descripcion: " + this.productos[i].getDescripcion()
+                        + ", precio: " + this.productos[i].getPrecio()
+                        + ", costopor unidad:" + this.productos[i].getCostoPorUnidad()
+                        + ", cantidad:  " + this.productos[i].getCantidad());
+            }
+        }
+    }
+
+    /*
+     * Muestra todos los campos para controlar el estado de la venta
+     */
+    public void verVenta() {
+        System.out.println("\n\nViendo venta... "
+                + "id: " + this.id + "fecha: " + this.fecha
+                + "precio: " + this.precio);
+        System.out.println("\nProductos: ");
+        for (int i = 0; i < CANTIDAD_PRODUCTOS_A_VENDER; i++) {
+
+            if (this.productos[i] != null) {
+                System.out.println("identificador: " + this.productos[i].getIdentificadorAbstracto()
+                        + ", descripcion: " + this.productos[i].getDescripcion()
+                        + ", precio: " + this.productos[i].getPrecio()
+                        + ", costopor unidad:" + this.productos[i].getCostoPorUnidad()
+                        + ", cantidad:  " + this.productos[i].getCantidad());
+            }
+        }
     }
 
 }

@@ -9,7 +9,8 @@ public class ProductoEnvasado extends Producto implements InterfaceFuncionesProd
 
     public static String NOMBRE_CATEGORIA_ENVASADO = "AB";
     public static String[] TIPO_DE_ENVASE = { "PLASTICO", "VIDRIO", "LATA", };
-    public static Float PORCENTAJE_MAXIMO_DE_ENVASADO = 20.0f;
+    public static Float GANANCIA_PORCENTAJE_MAXIMO_DE_ENVASADO = 20.0f;
+    public static Float DESCUENTO_MAXIMO_PRODT_ENVASADO = 20.0f;
 
     private String tipoEnvase;
     private Boolean importado;
@@ -64,6 +65,14 @@ public class ProductoEnvasado extends Producto implements InterfaceFuncionesProd
 
     }
 
+    public static String getNOMBRE_CATEGORIA_ENVASADO() {
+        return NOMBRE_CATEGORIA_ENVASADO;
+    }
+
+    public static void setNOMBRE_CATEGORIA_ENVASADO(String nOMBRE_CATEGORIA_ENVASADO) {
+        NOMBRE_CATEGORIA_ENVASADO = nOMBRE_CATEGORIA_ENVASADO;
+    }
+
     @Override
     public Date getFechaVencimiento() {
         return this.fechaVencimiento;
@@ -116,7 +125,7 @@ public class ProductoEnvasado extends Producto implements InterfaceFuncionesProd
 
     @Override
     public void setearGanacia(Float precioProducto, Float porcentaje) {
-        if (porcentaje < PORCENTAJE_MAXIMO_DE_ENVASADO) {
+        if (porcentaje < GANANCIA_PORCENTAJE_MAXIMO_DE_ENVASADO) {
 
             Float porcent = precioProducto * (porcentaje / 100);// Calcula la ganancia en base al porcentaje
             Float gananc = porcent + precioProducto;
@@ -127,8 +136,17 @@ public class ProductoEnvasado extends Producto implements InterfaceFuncionesProd
             }
 
         } else {
-            System.out.println("El porcentaje de ganacia no puede ser mayor a " + PORCENTAJE_MAXIMO_DE_ENVASADO);
+            System.out
+                    .println("El porcentaje de ganacia no puede ser mayor a " + GANANCIA_PORCENTAJE_MAXIMO_DE_ENVASADO);
         }
+    }
+
+    public static Float getDESCUENTO_MAXIMO_PRODT_ENVASADO() {
+        return DESCUENTO_MAXIMO_PRODT_ENVASADO;
+    }
+
+    public static void setDESCUENTO_MAXIMO_PRODT_ENVASADO(Float dESCUENTO_MAXIMO_PRODT_ENVASADO) {
+        DESCUENTO_MAXIMO_PRODT_ENVASADO = dESCUENTO_MAXIMO_PRODT_ENVASADO;
     }
 
 }
