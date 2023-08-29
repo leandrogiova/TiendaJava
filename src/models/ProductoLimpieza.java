@@ -2,16 +2,16 @@ package models;
 
 import java.sql.Date;
 
-import funcionesProductos.FuncionesDescuento;
 import funcionesProductos.InterfaceFuncionesProductos;
 
-public class ProductoLimpieza extends Producto implements FuncionesDescuento, InterfaceFuncionesProductos {
+public class ProductoLimpieza extends Producto implements InterfaceFuncionesProductos {
 
     public static String NOMBRE_CATEGORIA_LIMPIEZA = "AZ";
     public static Float PORCENTAJE_MAXIMO_DE_LIMPIEZA = 25f;
     public static Float PORCENTAJE_MINIMO_DE_LIMPIEZA = 10f;
     public static String[] TIPO_DE_APLICACION = { "COCINA", "PISOS", "ROPA", "MULTIUSO" };
     public static Float DESCUENTO_MAXIMO_PRODT_LIMPI = 20.0f;
+
     private String TipoDeAplicacion;
 
     /*
@@ -46,16 +46,6 @@ public class ProductoLimpieza extends Producto implements FuncionesDescuento, In
 
     public void setTipoDeAplicacion(String tipoDeAplicacion) {
         TipoDeAplicacion = tipoDeAplicacion;
-    }
-
-    @Override
-    public Float getDescuento() {
-        return null;
-    }
-
-    @Override
-    public void setDescuento(Integer descuento) {
-
     }
 
     @Override
@@ -130,4 +120,27 @@ public class ProductoLimpieza extends Producto implements FuncionesDescuento, In
 
     }
 
+    /*
+     * funcion productoEsProductoLimpieza
+     * Recibe un Producto y verifica si el producto es un producto limpieza
+     * Hace esto verificando el tipo de identificador
+     * Recibe como parametro un Producto
+     * Retorna True si es un productoLimpieza
+     */
+    public static Boolean productoEsProductoLimpieza(Producto producto) {
+        char[] clave1 = producto.getIdentificadorAbstracto().toCharArray();
+        char[] claveProducto = ProductoBebida.NOMBRE_CATEGORIA_BEBIDA.toCharArray();
+        Boolean sonIguales = true;
+        for (int i = 0; i < claveProducto.length; i++) {
+            if (clave1.length <= i || clave1[i] != claveProducto[i]) {
+                sonIguales = false;
+                break;
+            }
+        }
+        if (sonIguales) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

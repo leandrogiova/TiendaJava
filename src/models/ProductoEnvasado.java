@@ -2,10 +2,9 @@ package models;
 
 import java.sql.Date;
 
-import funcionesProductos.FuncionesDescuento;
 import funcionesProductos.InterfaceFuncionesProductos;
 
-public class ProductoEnvasado extends Producto implements InterfaceFuncionesProductos, FuncionesDescuento {
+public class ProductoEnvasado extends Producto implements InterfaceFuncionesProductos {
 
     public static String NOMBRE_CATEGORIA_ENVASADO = "AB";
     public static String[] TIPO_DE_ENVASE = { "PLASTICO", "VIDRIO", "LATA", };
@@ -87,16 +86,6 @@ public class ProductoEnvasado extends Producto implements InterfaceFuncionesProd
     }
 
     @Override
-    public Float getDescuento() {
-        return null;
-    }
-
-    @Override
-    public void setDescuento(Integer descuento) {
-
-    }
-
-    @Override
     public void verProduto(Producto p) {
         ProductoEnvasado productoEnvasado = (ProductoEnvasado) p;
 
@@ -133,12 +122,27 @@ public class ProductoEnvasado extends Producto implements InterfaceFuncionesProd
         }
     }
 
-    public static Float getDESCUENTO_MAXIMO_PRODT_ENVASADO() {
-        return DESCUENTO_MAXIMO_PRODT_ENVASADO;
+    /*
+     * funcion productoEsProductoEnvasado
+     * Recibe un Producto y verifica si el producto es un producto Envasado
+     * Hace esto verificando el tipo de identificador
+     * Recibe como parametro un Producto
+     * Retorna True si es un productoEnvasado
+     */
+    public static Boolean productoEsProductoEnvasado(Producto producto) {
+        char[] clave1 = producto.getIdentificadorAbstracto().toCharArray();
+        char[] claveProducto = ProductoEnvasado.NOMBRE_CATEGORIA_ENVASADO.toCharArray();
+        Boolean sonIguales = true;
+        for (int i = 0; i < claveProducto.length; i++) {
+            if (clave1.length <= i || clave1[i] != claveProducto[i]) {
+                sonIguales = false;
+                break;
+            }
+        }
+        if (sonIguales) {
+            return true;
+        } else {
+            return false;
+        }
     }
-
-    public static void setDESCUENTO_MAXIMO_PRODT_ENVASADO(Float dESCUENTO_MAXIMO_PRODT_ENVASADO) {
-        DESCUENTO_MAXIMO_PRODT_ENVASADO = dESCUENTO_MAXIMO_PRODT_ENVASADO;
-    }
-
 }

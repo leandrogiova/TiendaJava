@@ -29,6 +29,7 @@ public abstract class Producto {
         this.precio = precio;
         this.costoPorUnidad = costoPorUnidad;
         this.cantidad = cantidad;
+        this.descuento = 0f;
     }
 
     public Producto() {
@@ -60,6 +61,14 @@ public abstract class Producto {
         }
     }
 
+    public Float getDescuento() {
+        return descuento;
+    }
+
+    public void setDescuento(Float descuento) {
+        this.descuento = descuento;
+    }
+
     public Float getCostoPorUnidad() {
         return costoPorUnidad;
     }
@@ -82,14 +91,6 @@ public abstract class Producto {
 
     public void setCantidad(Integer cantidad) {
         this.cantidad = cantidad;
-    }
-
-    public Float getDescuento() {
-        return descuento;
-    }
-
-    public void setDescuento(Float descuento) {
-        this.descuento = descuento;
     }
 
     public String getDescripcion() {

@@ -1,5 +1,8 @@
 package Tienda;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -77,6 +80,7 @@ public class Tienda implements InterfaceTienda {
     }
 
     public Tienda() {
+        this.nuevaVenta = new Venta();
         this.inventario = new HashMap<>();
     }
 
@@ -202,23 +206,23 @@ public class Tienda implements InterfaceTienda {
      * Realiza una venta, agregando un producto a la lista de productos de una venta
      * Recibe como parametro
      */
-    public void realizarVenta(Producto producto) {
-        this.nuevaVenta.setId(1l);
+    public void realizarVenta(Producto producto, Float descuento) {
+        // this.nuevaVenta.setId(1l);
 
-        nuevaVenta.agregarUnProductoALaVenta(producto, getInventario());
+        nuevaVenta.agregarUnProductoALaVenta(producto, getInventario(), descuento);
         actualizarInventarioConProductoVendido(nuevaVenta.getProductos());
     }
 
     /*
      * 
      */
-    public void cerrarVenta(Venta venta) {
-        this.saldoEnCaja = this.saldoEnCaja + venta.getPrecio();
+    public void cerrarVenta() {
+        this.saldoEnCaja = this.saldoEnCaja + getNuevaVenta().getPrecio();
 
-        actualizarInventarioConProductoVendido(venta.getProductos());
+        actualizarInventarioConProductoVendido(getNuevaVenta().getProductos());
 
         verInventario();
-        venta.verVenta();
+        getNuevaVenta().verVenta();
 
     }
 
@@ -239,7 +243,6 @@ public class Tienda implements InterfaceTienda {
                         int cantidad = entry.getValue().getCantidad();
                         cantidad = cantidad - productosVenta[i].getCantidad();
                         entry.getValue().setCantidad(cantidad);
-                        System.out.println("\n-123-Productos de la venta: " + entry.getValue().getCantidad());
                     }
                 }
 
@@ -266,4 +269,68 @@ public class Tienda implements InterfaceTienda {
         return null;
     }
 
+    /*
+     * funcion obtenerComestiblesConMenorDescuento
+     * Recibe un porcentajeDeDescuento y retorna todos los productos Envasados NO
+     * importados
+     * Que el descuento sea menor al descuento pasado por parametro.
+     * Guarda solamente la descripcion del producto.
+     * Pone todos los caracteres en mayusculas y los ordena alfabeticamente
+     * Recibe como parametro un porcentaje de descuento
+     * Retorna una lista de String
+     */
+    public ArrayList<String> obtenerComestiblesConMenorDescuento(Float porcentajeDescuento) {
+
+        Map<String, Producto> inventario = getInventario();
+        ArrayList<String> nombresProductos = new ArrayList<>();
+
+        for (Map.Entry<String, Producto> entry : inventario.entrySet()) {
+            String clave = entry.getKey();
+            Producto producto = entry.getValue();
+            if (ProductoEnvasado.productoEsProductoEnvasado(producto)) {
+                if ((((ProductoEnvasado) producto).getImportado() == false)
+                        && ((ProductoEnvasado) producto).getDescuento() < porcentajeDescuento) {
+
+                    nombresProductos.add(producto.getDescripcion().toUpperCase());
+                }
+
+            }
+        }
+        Collections.sort(nombresProductos);
+        System.out.println("Viendo array de ProductosComestibles");
+        for (int i = 0; i < nombresProductos.size(); i++) {
+            System.out.print(nombresProductos.get(i) + ", ");
+        }
+
+        return nombresProductos;
+    }
+
+    /*
+     * funcion listarProductosConUtilidadesInferiores
+     * Retorna todos los productos con una rentabilidad en forma de porcentaje menor
+     * a la que es pasada por parametro
+     * Recibe como parametro una porcentaje de ganancia
+     * Retorna una lista de Productos
+     */
+    public ArrayList<Producto> listarProductosConUtilidadesInferiores(Float porcentaje_utilidad) {
+        Map<String, Producto> inventario = getInventario();
+        ArrayList<Producto> productos = new ArrayList<>();
+        Float gananciaP;
+        for (Map.Entry<String, Producto> entry : inventario.entrySet()) {
+            String clave = entry.getKey();
+            Producto producto = entry.getValue();
+            gananciaP = ((producto.getPrecio() - producto.getCostoPorUnidad()) / producto.getCostoPorUnidad()) * 100;
+
+            if (gananciaP < porcentaje_utilidad) {
+                productos.add(producto);
+            }
+        }
+
+        for (int i = 0; i < productos.size(); i++) {
+            System.out.println(productos.get(i).getIdentificadorAbstracto() + "  " + productos.get(i).getDescripcion()
+                    + ", cant: " + productos.get(i).getCantidad());
+        }
+
+        return productos;
+    }
 }

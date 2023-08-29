@@ -1,6 +1,7 @@
 package Tienda.Operaciones;
 
 import java.sql.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 import models.Producto;
@@ -12,11 +13,14 @@ public class Venta implements InterfaceVenta {
 
     public static int CANTIDAD_PRODUCTOS_A_VENDER = 3;
     public static int CANTIDAD_DE_PRODUCTOS_EL_MISMO_TIPO = 10;
+    public static Float IMPUESTO_PRODUCTO_IMPORTADO = 10.0f;
 
     private Long id;
     private Producto[] productos = new Producto[CANTIDAD_PRODUCTOS_A_VENDER];
     private Date fecha;
     private Float precio;
+    private Float porcentajeGanancia;
+    private Float porcentajeDescuento;
 
     public Venta(Long id, Producto[] productos, Date fecha) {
         this.id = id;
@@ -27,6 +31,8 @@ public class Venta implements InterfaceVenta {
 
     public Venta() {
         this.precio = 0f;
+        this.porcentajeDescuento = 0f;
+        this.porcentajeGanancia = 0f;
 
     }
 
@@ -62,10 +68,26 @@ public class Venta implements InterfaceVenta {
         this.precio = precio;
     }
 
+    public Float getPorcentajeGanancia() {
+        return porcentajeGanancia;
+    }
+
+    public void setPorcentajeGanancia(Float porcentajeGanancia) {
+        this.porcentajeGanancia = porcentajeGanancia;
+    }
+
+    public Float getPorcentajeDescuento() {
+        return porcentajeDescuento;
+    }
+
+    public void setPorcentajeDescuento(Float porcentajeDescuento) {
+        this.porcentajeDescuento = porcentajeDescuento;
+    }
+
     /*
      * Funcion agregarUnProductoALaVenta
      */
-    public void agregarUnProductoALaVenta(Producto p1, Map<String, Producto> inventario) {
+    public void agregarUnProductoALaVenta(Producto p1, Map<String, Producto> inventario, Float descuento) {
 
         if (inventario.isEmpty()) {
             System.out.println("El inventario esta vacio");
@@ -73,10 +95,22 @@ public class Venta implements InterfaceVenta {
             // valido que no se compren mas de 10 productos
             if (p1.getCantidad() <= CANTIDAD_DE_PRODUCTOS_EL_MISMO_TIPO) {
                 Producto p2 = buscarProductoEnInventario(p1, inventario);
-                System.out.println("\n\np2: " + p2.getCantidad());
+                if (p2 == null) {
+                    System.out.println("El producto no existe en el inventario");
+                }
                 if (p2 != null) {
+                    // verifica el descuento y lo setea a Producto.setDescuento
+                    agregarDescuento2(p2, descuento);
                     agregarProducto_A_Productos(p2);// agega un producto a this.productos en la posicion que corresponde
-                    this.precio = this.precio + (p2.getPrecio() * p2.getCantidad());
+
+                    calcularPrecioVenta();
+                    /*
+                     * if (p2.getDescuento() != null) {
+                     * this.precio = this.precio + (p2.getPrecio() * p2.getCantidad());
+                     * } else {
+                     * 
+                     * }
+                     */
                 }
             } else {
                 System.out.println("No se pueden comprar mas de " + CANTIDAD_DE_PRODUCTOS_EL_MISMO_TIPO + " productos");
@@ -101,7 +135,34 @@ public class Venta implements InterfaceVenta {
                 break;
             }
         }
+    }
 
+    /*
+     * calcula el precio de la venta
+     * Con los descuentos incluidos
+     */
+    public void calcularPrecioVenta() {
+        this.precio = 0f;
+        for (int i = 0; i < CANTIDAD_PRODUCTOS_A_VENDER; i++) {
+            Producto producto = getProductos()[i];
+            if (producto != null) {
+                if (producto.getDescuento() != null) {
+
+                    Float precioTemp = calcularDescuento(producto.getPrecio(), producto.getDescuento());
+                    if (ProductoEnvasado.productoEsProductoEnvasado(producto)
+                            && ((ProductoEnvasado) producto).getImportado()) {
+                        precioTemp = precioTemp + (precioTemp * (IMPUESTO_PRODUCTO_IMPORTADO)) / 100;
+                    }
+                    if (ProductoBebida.productoEsProductoBebida(producto)
+                            && ((ProductoBebida) producto).getImportado()) {
+                        precioTemp = precioTemp + (precioTemp * (IMPUESTO_PRODUCTO_IMPORTADO)) / 100;
+                    }
+                    this.precio += precioTemp;
+                } else {
+                    this.precio += (producto.getPrecio() * producto.getCantidad());
+                }
+            }
+        }
     }
 
     /*
@@ -121,188 +182,155 @@ public class Venta implements InterfaceVenta {
      * Retorna el Producto que se quiera vender
      */
     public Producto buscarProductoEnInventario(Producto p1, Map<String, Producto> inventario) {
-
+        // valido que no quiera comprar mas de los productos que haya en stock
         for (Map.Entry<String, Producto> entry : inventario.entrySet()) {
 
+            String clave = entry.getKey();
             Producto producto = entry.getValue();
-            int i = 0;
-            System.out.println("i:" + i + "producto.cantidad: " + producto.getCantidad());
-            i++;
-        }
-        return p1;
+            if (clave.equals(p1.getIdentificadorAbstracto())) {
 
-        /*
-         * 
-         * // valido que no quiera comprar mas de los productos que haya en stock
-         * for (Map.Entry<String, Producto> entry : inventario.entrySet()) {
-         * 
-         * String clave = entry.getKey();
-         * Producto producto = entry.getValue();
-         * 
-         * System.out.println("1--> p1.cantidad: " + p1.getCantidad() +
-         * "inventario.p.cantidad: "
-         * + producto.getCantidad());
-         * 
-         * if (clave.equals(p1.getIdentificadorAbstracto())) {
-         * 
-         * // encontre mi producto en el inventario
-         * if ((producto.getCantidad()) == 0) {
-         * 
-         * System.out.println("El Producto " + p1.getIdentificadorAbstracto() +
-         * p1.getDescripcion()
-         * + " no se encuentra disponible");
-         * return null;
-         * } else {
-         * if ((p1.getCantidad()) < (entry.getValue().getCantidad())) {
-         * System.out.println("Hay productos con stock disponible menor al solicitado");
-         * 
-         * p1.setCantidad(producto.getCantidad());
-         * return p1;
-         * } else {
-         * 
-         * return p1;
-         * }
-         * }
-         * 
-         * }
-         * }
-         * System.out.println(
-         * "El producto " + p1.getIdentificadorAbstracto() + p1.getDescripcion() +
-         * "no se encuentra disponible");
-         * return null;
-         */
+                // encontre mi producto en el inventario
+                if ((producto.getCantidad()) == 0) {
+
+                    System.out.println("El Producto " + p1.getIdentificadorAbstracto() +
+                            p1.getDescripcion()
+                            + " no se encuentra disponible");
+                    return null;
+                } else {
+                    if ((p1.getCantidad()) < (entry.getValue().getCantidad())) {
+                        System.out.println("Hay productos con stock disponible menor al solicitado");
+
+                        p1.setCantidad(producto.getCantidad());
+                        return p1;
+                    } else {
+
+                        return p1;
+                    }
+                }
+
+            }
+        }
+        System.out.println(
+                "El producto " + p1.getIdentificadorAbstracto() + p1.getDescripcion() +
+                        "no se encuentra disponible");
+        return null;
     }
 
     /*
-     * Recibe un Producto y setea el descuento
+     * Funcion agregarDescueto
+     * Recibe un Producto y setea el descuento(this.porcentajeDescuento = descuento)
+     * Dependiedo de los tipos de productos se hacen uno u otros descuentos
+     * Recibe un Producto y calcula el decuento.
+     * Retorna el precio CON EL DESCUENTO YA CALCULADO
      */
-    public void agregarDescuento(Producto p1, Float descuento) {
+    public Float agregarDescuento(Producto p1, Float descuento) {
 
-        if (productoEsProductoEnvasado(p1)) {
+        if (ProductoEnvasado.productoEsProductoEnvasado(p1)) {
             if (descuento > ProductoEnvasado.DESCUENTO_MAXIMO_PRODT_ENVASADO) {
-                // TODO seguir aca
+                Float desc = calcularDescuento(p1.getPrecio(), descuento);
+                if (p1.getCostoPorUnidad() > desc) {
+                    System.out.println("El descuento registrado para el producto " + p1.getIdentificadorAbstracto()
+                            + " no pudo ser aplicacdo");// producto.PrecioPorUnidad = 50 precioFInal = 45
+                    return 0f;
+                } else {
+                    System.out.println("Descuento aplicado correctamente");
+                    this.porcentajeDescuento = descuento;
+                    return desc;
+                }
             }
         }
-        if (productoEsProductoBebida(p1)) {
+        if (ProductoBebida.productoEsProductoBebida(p1)) {
             if (descuento > ProductoBebida.DESCUENTO_MAXIMO_PRODT_BEBIDA) {
-                // TODO seguir aca
+                Float desc = calcularDescuento(p1.getPrecio(), descuento);
+                if (p1.getCostoPorUnidad() > desc) {
+                    System.out.println("El descuento registrado para el producto " + p1.getIdentificadorAbstracto()
+                            + " no pudo ser aplicacdo");// producto.PrecioPorUnidad = 50 precioFInal = 45
+                    return 0f;
+                } else {
+                    System.out.println("Descuento aplicado correctamente");
+                    this.porcentajeDescuento = descuento;
+                    return desc;
+                }
             }
         }
-        if (productoEsProductoEnvasado(p1)) {
+        if (ProductoLimpieza.productoEsProductoLimpieza(p1)) {
             if (descuento > ProductoLimpieza.DESCUENTO_MAXIMO_PRODT_LIMPI) {
-                // TODO seguir aca
+                Float desc = calcularDescuento(p1.getPrecio(), descuento);
+                if (p1.getCostoPorUnidad() > desc) {
+                    System.out.println("El descuento registrado para el producto " + p1.getIdentificadorAbstracto()
+                            + " no pudo ser aplicacdo");// producto.PrecioPorUnidad = 50 precioFInal = 45
+                    return 0f;
+                } else {
+                    System.out.println("Descuento aplicado correctamente");
+                    this.porcentajeDescuento = descuento;
+                    return desc;
+                }
+
             }
         }
+        return 0f;
+    }
 
-        // if (productoEsProductoBebida(p1)) {
-        // if (ProductoLimpieza)
-        /*
-         * char[] clave = p1.getIdentificadorAbstracto().toCharArray();
-         * if (clave[0] == 'A' && clave[1] == 'B') { // producto envasado
-         * ProductoEnvasado producto = (ProductoEnvasado) p1;
-         * if (descuento > ProductoEnvasado.getDESCUENTO_MAXIMO_PRODT_ENVASADO()) {
-         * System.out.
-         * println("En productos de Envasados el descuento no puede ser mayor al 20%");
-         * } else {
-         * System.out.println("\n\nprecioProducto: " + producto.getPrecio() +
-         * "\ndescuento: " + descuento);
-         * Float des = producto.getPrecio() - (producto.getPrecio() * (descuento /
-         * 100));
-         * System.out.println("\n\ndescuento: " + des);
-         * 
-         * }
-         * }
-         * if (clave[0] == 'A' && clave[1] == 'C')
-         * 
-         * {// producto bebida
-         * ProductoBebida producto = (ProductoBebida) p1;
-         * }
-         * if (clave[0] == 'A' && clave[1] == 'Z') { // producto limpieza
-         * ProductoLimpieza producto = (ProductoLimpieza) p1;
-         * }
-         */
+    /*
+     * 
+     * 
+     * 
+     * 
+     * 
+     */
+    public void agregarDescuento2(Producto p1, Float descuento) {
 
+        if (ProductoEnvasado.productoEsProductoEnvasado(p1)) {
+            if (descuento > ProductoEnvasado.DESCUENTO_MAXIMO_PRODT_ENVASADO) {
+                Float desc = calcularDescuento(p1.getPrecio(), descuento);
+                if (p1.getCostoPorUnidad() > desc) {
+                    System.out.println("El descuento registrado para el producto " + p1.getIdentificadorAbstracto()
+                            + " no pudo ser aplicacdo");// producto.PrecioPorUnidad = 50 precioFInal = 45
+                } else {
+                    System.out.println("Descuento aplicado correctamente");
+                    p1.setDescuento(descuento);
+                }
+            }
+        }
+        if (ProductoBebida.productoEsProductoBebida(p1)) {
+            if (descuento > ProductoBebida.DESCUENTO_MAXIMO_PRODT_BEBIDA) {
+                Float desc = calcularDescuento(p1.getPrecio(), descuento);
+                if (p1.getCostoPorUnidad() > desc) {
+                    System.out.println("El descuento registrado para el producto " + p1.getIdentificadorAbstracto()
+                            + " no pudo ser aplicacdo");// producto.PrecioPorUnidad = 50 precioFInal = 45
+                } else {
+                    System.out.println("Descuento aplicado correctamente");
+                    p1.setDescuento(descuento);
+                }
+            }
+        }
+        if (ProductoLimpieza.productoEsProductoLimpieza(p1)) {
+            if (descuento > ProductoLimpieza.DESCUENTO_MAXIMO_PRODT_LIMPI) {
+                Float desc = calcularDescuento(p1.getPrecio(), descuento);
+                if (p1.getCostoPorUnidad() > desc) {
+                    System.out.println("El descuento registrado para el producto " + p1.getIdentificadorAbstracto()
+                            + " no pudo ser aplicacdo");// producto.PrecioPorUnidad = 50 precioFInal = 45
+                } else {
+                    System.out.println("Descuento aplicado correctamente");
+                    p1.setDescuento(descuento);
+                }
+
+            }
+        }
     }
 
     /*
      * Calcula el descuento que se quiere hacer
+     * Recibe un precio y un descuento en porcentaje.
+     * Por eejemplo, el precio=150 y el descuento es del 15% => precio final =
+     * 127.50
+     * Recibe como parametro un Float y un Float descuento
+     * Retorna el precio con el descuento
+     * // 100 10% ==> 100 - ((100*10)/100) => 90, precioP = 100, descuento = 10
+     * // 155 17% == 155 - ((155*¨17)/100) => 128.65, preicioP = 155, descuento = 17
      */
     public Float calcularDescuento(Float precioP, Float descuento) {
-        // 100 10% ==>
-        // 155 17% == 155 - ((155*¨17)/100)
         return precioP = precioP - ((precioP * descuento) / 100);
-    }
-
-    /*
-     * funcion productoEsProductoEnvasado
-     * Recibe un Producto y verifica si el producto es un producto Envasado
-     * Hace esto verificando el tipo de identificador
-     * Recibe como parametro un Producto
-     * Retorna True si es un productoEnvasado
-     */
-    public Boolean productoEsProductoEnvasado(Producto producto) {
-        char[] clave1 = producto.getIdentificadorAbstracto().toCharArray();
-        char[] claveProducto = ProductoEnvasado.NOMBRE_CATEGORIA_ENVASADO.toCharArray();
-        Boolean sonIguales = true;
-        for (int i = 0; i < claveProducto.length; i++) {
-            if (clave1.length <= i || clave1[i] != claveProducto[i]) {
-                sonIguales = false;
-                break;
-            }
-        }
-        if (sonIguales) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    /*
-     * funcion productoEsProductobebida
-     * Recibe un Producto y verifica si el producto es un producto bebida
-     * Hace esto verificando el tipo de identificador
-     * Recibe como parametro un Producto
-     * Retorna True si es un productoBebida
-     */
-    public Boolean productoEsProductoBebida(Producto producto) {
-        char[] clave1 = producto.getIdentificadorAbstracto().toCharArray();
-        char[] claveProducto = ProductoBebida.NOMBRE_CATEGORIA_BEBIDA.toCharArray();
-        Boolean sonIguales = true;
-        for (int i = 0; i < claveProducto.length; i++) {
-            if (clave1.length <= i || clave1[i] != claveProducto[i]) {
-                sonIguales = false;
-                break;
-            }
-        }
-        if (sonIguales) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    /*
-     * funcion productoEsProductoLimpieza
-     * Recibe un Producto y verifica si el producto es un producto limpieza
-     * Hace esto verificando el tipo de identificador
-     * Recibe como parametro un Producto
-     * Retorna True si es un productoLimpieza
-     */
-    public Boolean productoEsProductoLimpieza(Producto producto) {
-        char[] clave1 = producto.getIdentificadorAbstracto().toCharArray();
-        char[] claveProducto = ProductoBebida.NOMBRE_CATEGORIA_BEBIDA.toCharArray();
-        Boolean sonIguales = true;
-        for (int i = 0; i < claveProducto.length; i++) {
-            if (clave1.length <= i || clave1[i] != claveProducto[i]) {
-                sonIguales = false;
-                break;
-            }
-        }
-        if (sonIguales) {
-            return true;
-        } else {
-            return false;
-        }
     }
 
     /*

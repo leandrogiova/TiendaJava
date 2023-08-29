@@ -19,17 +19,18 @@ public class App {
                 Tienda nuevaTienda2 = new Tienda();
                 Venta nuevaVenta_ = new Venta();
                 int opcion;
+                int opcion2;
                 int contadorVentas = 0;
 
                 System.out.println("Creando clase Productos...");
 
                 Date fecha1 = new Date(123, 10, 1);
-                ProductoBebida productoB1 = new ProductoBebida(001, "Coca-Cola 500ml", 20.0f, 500.0f, 50, false, 0f,
+                ProductoBebida productoB1 = new ProductoBebida(001, "Coca-Cola 500ml", 20666.0f, 5.0f, 50, false, 0f,
                                 true, fecha1, 1500);
 
-                ProductoBebida productoB2 = new ProductoBebida(002, "Coca-Cola 1l", 30.0f, 28.0f, 50, false, 0f, true,
+                ProductoBebida productoB2 = new ProductoBebida(002, "Coca-Cola 1l", 970.0f, 28.0f, 50, false, 0f, true,
                                 fecha1, 3000);
-                ProductoBebida productoB3 = new ProductoBebida(003, "Sprite 500ml", 20.0f, 18.0f, 20, false, 0f, true,
+                ProductoBebida productoB3 = new ProductoBebida(003, "Sprite 500ml", 3.0f, 5.0f, 20, false, 0f, true,
                                 fecha1, 1500);
                 ProductoBebida productoB4 = new ProductoBebida(004, "Sprite 1l", 30.0f, 28.0f, 20, false, 0f, true,
                                 fecha1, 3000);
@@ -74,15 +75,16 @@ public class App {
                                 false, fecha1, 1500);
                 ProductoEnvasado productoE3 = new ProductoEnvasado(003, "Fideo Spagetti 1kg", 13f, 10.0f, 10, (byte) 1,
                                 false, fecha1, 1500);
-                ProductoEnvasado productoE4 = new ProductoEnvasado(004, "Cafe Capsulas 10u", 25f, 1022f, 10, (byte) 1,
+                ProductoEnvasado productoE4 = new ProductoEnvasado(004, "Cafe Capsulas 10u", 25555f, 1022f, 10,
+                                (byte) 1,
                                 true, fecha1, 1500);
-                ProductoEnvasado productoE5 = new ProductoEnvasado(005, "Aceite 1l", 21f, 20.5f, 5, (byte) 1, true,
+                ProductoEnvasado productoE5 = new ProductoEnvasado(005, "Aceite 1l", 21566f, 20.5f, 5, (byte) 1, true,
                                 fecha1, 1500);
                 ProductoEnvasado productoE6 = new ProductoEnvasado(006, "Dulce de Leche 1kg", 35.7f, 30f, 20, (byte) 1,
                                 false, fecha1, 1500);
                 ProductoEnvasado productoE7 = new ProductoEnvasado(007, "Zanahorias 1kg", 0.50f, 0.02f, 2, (byte) 1,
                                 false, fecha1, 1500);
-                ProductoEnvasado productoE8 = new ProductoEnvasado(8, "Asado 3kg", 75f, 65f, 6, (byte) 0, false, fecha1,
+                ProductoEnvasado productoE8 = new ProductoEnvasado(8, "Asado 3kg", 90f, 56f, 6, (byte) 0, false, fecha1,
                                 1500);
 
                 ProductoLimpieza productoL1 = new ProductoLimpieza(001, "Lavandina 1L", 8.50f, 7.50f, 5, (byte) 3);
@@ -97,7 +99,7 @@ public class App {
 
                 ProductoLimpieza productoL7 = new ProductoLimpieza(007, "Espongita acero", 0.20f, 0.10f, 25,
                                 (byte) 3);
-                ProductoLimpieza productoL8 = new ProductoLimpieza(8, "Detergente para la ropa 1l", 40f, 38f, 7,
+                ProductoLimpieza productoL8 = new ProductoLimpieza(8, "Detergente para la ropa 1l", 100f, 50f, 3,
                                 (byte) 2);
 
                 Tienda nuevaTienda = new Tienda();
@@ -132,18 +134,52 @@ public class App {
                 nuevaTienda.getInventario().put(productoL7.getIdentificadorAbstracto(), productoL7);
                 nuevaTienda.getInventario().put(productoL8.getIdentificadorAbstracto(), productoL8);
 
-                ProductoLimpieza productvoL88 = new ProductoLimpieza(8, "Detergente para la ropa 1l", 40f, 38f, 2,
+                ProductoLimpieza productvoL88 = new ProductoLimpieza(8, "Detergente para la ropa 1l", 40f, 38f, 8,
                                 (byte) 2);
+                ProductoEnvasado productoE11 = new ProductoEnvasado(001, "Arroz 1kg", 12.4f, 10.0f, 3, (byte) 1, true,
+                                fecha1, 1500);
+                ProductoBebida productoB22 = new ProductoBebida(002, "Coca-Cola 1l", 30.0f, 28.0f, 8, false, 0f, true,
+                                fecha1, 3000);
                 Producto[] productos = new Producto[1];
                 productos[0] = productvoL88;
                 // Probando
-                nuevaTienda.verInventario();
+                // nuevaTienda.verInventario();
                 nuevaTienda.actualizarInventarioConProductoVendido(productos);
 
-                // nuevaTienda.agregarDescuento(productoE8, )
+                System.out.println("\n\nPrueba de Tienda Terminada\n\n\n\n\n");
 
-                System.out.println("\n\n\nPrueba Terminada\n\n\n");
+                System.out.println("\n\n\n\n\n\n\n\n VIENDO Prueba de VENTA");
+                Venta nuevaVenta = new Venta(); //
+                // nuevaVenta.agregarProducto_A_Productos(productoL8);
+                // nuevaVenta.agregarProducto_A_Productos(productoL7);
+                // nuevaVenta.agregarUnProductoALaVenta(productvoL88,
+                // nuevaTienda.getInventario());
+                nuevaTienda.realizarVenta(productvoL88, 50.0f);
+                nuevaTienda.getNuevaVenta().verDetalleDeLaVenta();
+                nuevaTienda.verTienda();
+                System.out.println("\n----------------------------------------------------------------");
                 /*
+                 * nuevaTienda.realizarVenta(productoE11);
+                 * nuevaTienda.getNuevaVenta().verVenta();
+                 * nuevaTienda.verTienda();
+                 * // nuevaVenta.agregarUnProductoALaVenta(productoE11,
+                 * // nuevaTienda.getInventario());
+                 * // nuevaVenta.verVenta();
+                 * // nuevaTienda.verTienda();
+                 * System.out.println(
+                 * "\n----------------------------------------------------------------");
+                 * 
+                 * nuevaTienda.realizarVenta(productoB22);
+                 * nuevaTienda.getNuevaVenta().verVenta();
+                 * nuevaTienda.verTienda();
+                 * System.out.println(
+                 * "\n----------------------------------------------------------------");
+                 * nuevaTienda.cerrarVenta();
+                 */
+                System.out.println("\n\n\nPrueba de Venta Terminada\n\n\n");
+
+                /*
+                
                 *
                 *
                 *
@@ -202,11 +238,89 @@ public class App {
                  * 
                  */
 
+                /*
+                
+                *
+                *
+                *
+                *
+                *
+                *
+                * 
+                * 
+                * 
+                * 
+                * 
+                * 
+                */
+                System.out.println("\n\n\n\n\n\n\n\n\n\nViendo Pruebas parte 3");
+                nuevaTienda.verInventario();
+
+                Tienda nuevaTiendaParte3 = new Tienda();
+                ProductoEnvasado productoE111 = new ProductoEnvasado(001, "Arroz 1kg", 12.4f, 10.0f, 5, (byte) 1, false,
+                                fecha1, 1500);
+                productoE111.setDescuento(50f);
+                nuevaTiendaParte3.getInventario().put(productoE1.getIdentificadorAbstracto(), productoE111);
+                // nuevaTiendaParte3.obtenerComestiblesConMenorDescuento(90f);
+                // nuevaTienda.obtenerComestiblesConMenorDescuento(90f);
+
+                System.out.println("\n\n\n\n\n\n\n\n\n\nTermino la prueba de 3");
+                nuevaTienda.listarProductosConUtilidadesInferiores(20f);
+                /*
+                 * 
+                 * 
+                 * 
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                 
+                 */
+
                 ProductoLimpieza productoL20 = new ProductoLimpieza(8, "Detergente para la ropa 1l", 900000f, 99999f, 2,
                                 (byte) 2);
+
                 System.out.println("\n\nComprando productos...");
                 nuevaTienda.comprarProducto(productoL20);
-
+                // TODO POR FUNCIONES LA VENTA FUNCIONA PERFECTAMENTE, POR MAIN NO FUNCIONA LA
+                // VENTA!
                 do {
                         System.out.println("\n\nMenu para compras:");
                         System.out.println("1 - Ingresar un producto para comprar");
@@ -328,9 +442,13 @@ public class App {
                                                         System.out.println("No se encontro al producto");
                                                 } else {
                                                         producto_A_Vender.setCantidad(cant55);
-
-                                                        nuevaTienda2.realizarVenta(producto_A_Vender);
-
+                                                        System.out.print(
+                                                                        "¿Desea ingresar un descueto?\n 1-Si   2-No:   ");
+                                                        Float descuento = entrada.nextFloat();
+                                                        /////////////////////////////////////////// nuevaTienda2.realizarVenta(producto_A_Vender);
+                                                        nuevaTienda2.getNuevaVenta().agregarDescuento(producto_A_Vender,
+                                                                        descuento);
+                                                        System.out.println("\n\n\nPausa---");
                                                         nuevaTienda2.getNuevaVenta().verDetalleDeLaVenta();
                                                         contadorVentas++;
                                                 }
@@ -338,12 +456,12 @@ public class App {
                                         } else {
                                                 System.out.println("No puedes ingresar más productos a la venta.");
                                                 System.out.println("Cerrando venta y terminando...");
-                                                nuevaTienda2.cerrarVenta(nuevaVenta_);
+                                                nuevaTienda2.cerrarVenta();
 
                                         }
                                         break;
                                 case 2:
-                                        nuevaTienda2.cerrarVenta(nuevaVenta_);
+                                        nuevaTienda2.cerrarVenta();
 
                                         System.out.println("Cerrando venta y terminando...");
                                         break;

@@ -2,10 +2,9 @@ package models;
 
 import java.sql.Date;
 
-import funcionesProductos.FuncionesDescuento;
 import funcionesProductos.InterfaceFuncionesProductos;
 
-public class ProductoBebida extends Producto implements InterfaceFuncionesProductos, FuncionesDescuento {
+public class ProductoBebida extends Producto implements InterfaceFuncionesProductos {
 
     public static String NOMBRE_CATEGORIA_BEBIDA = "AC";
     public static Float GANANCIA_PORCENTAJE_MAXIMO_DE_BEBIDA = 15.0f;
@@ -94,16 +93,6 @@ public class ProductoBebida extends Producto implements InterfaceFuncionesProduc
     }
 
     @Override
-    public Float getDescuento() {
-        return null;
-    }
-
-    @Override
-    public void setDescuento(Integer descuento) {
-
-    }
-
-    @Override
     public void setearGanacia(Float precioProducto, Float porcentaje) {
         if (porcentaje < GANANCIA_PORCENTAJE_MAXIMO_DE_BEBIDA) {
 
@@ -131,6 +120,30 @@ public class ProductoBebida extends Producto implements InterfaceFuncionesProduc
                 + ", importado: " + producto.getImportado()
                 + ", alcoholica: " + producto.getAlcoholica()
                 + ",  porcentajeAlcohol%: " + producto.getPorcentajeDeAlcohol());
+    }
+
+    /*
+     * funcion productoEsProductobebida
+     * Recibe un Producto y verifica si el producto es un producto bebida
+     * Hace esto verificando el tipo de identificador
+     * Recibe como parametro un Producto
+     * Retorna True si es un productoBebida
+     */
+    public static Boolean productoEsProductoBebida(Producto producto) {
+        char[] clave1 = producto.getIdentificadorAbstracto().toCharArray();
+        char[] claveProducto = ProductoBebida.NOMBRE_CATEGORIA_BEBIDA.toCharArray();
+        Boolean sonIguales = true;
+        for (int i = 0; i < claveProducto.length; i++) {
+            if (clave1.length <= i || clave1[i] != claveProducto[i]) {
+                sonIguales = false;
+                break;
+            }
+        }
+        if (sonIguales) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }
