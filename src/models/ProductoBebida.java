@@ -94,7 +94,7 @@ public class ProductoBebida extends Producto implements InterfaceFuncionesProduc
 
     @Override
     public void setearGanacia(Float precioProducto, Float porcentaje) {
-        if (porcentaje < GANANCIA_PORCENTAJE_MAXIMO_DE_BEBIDA) {
+        if (porcentaje <= GANANCIA_PORCENTAJE_MAXIMO_DE_BEBIDA) {
 
             Float porcent = precioProducto * (porcentaje / 100);// Calcula la ganancia en base al porcentaje
             Float gananc = porcent + precioProducto;

@@ -56,9 +56,17 @@ public class App {
                 productoB1.setearGanacia(productoB1.getCostoPorUnidad(), 50f);
 
                 System.out.println("Probando clases de setearGanancia");
-                ProductoBebida productoB20 = new ProductoBebida(8, "Fanta", 20.0f, 0f, 10, false, 0f, false, fecha1,
+                ProductoBebida productoB20 = new ProductoBebida(8, "Fanta", 20.0f, 15f, 10, false, 0f, false, fecha1,
                                 1500);
                 productoB20.setearGanacia(productoB20.getCostoPorUnidad(), 10f);
+                System.out.println("ProductoB20: \nidentificador:" +
+                                productoB20.getIdentificadorAbstracto()
+                                + ",  descripcion:" + productoB20.getDescripcion()
+                                + ",  precio: " + productoB20.getPrecio()
+                                + ", costoPorUnidad:" + productoB20.getCostoPorUnidad() +
+                                ",  cantiddad: " + productoB20.getCantidad()
+                                + ", porcentajeDeAlcohol:  " + productoB20.getPorcentajeDeAlcohol()
+                                + ", importado: " + productoB20.getImportado() + "\n\n\n");
 
                 System.out.println("Producto: \nidentificador:" +
                                 productoB1.getIdentificadorAbstracto()
@@ -146,7 +154,7 @@ public class App {
                 // nuevaTienda.verInventario();
                 nuevaTienda.actualizarInventarioConProductoVendido(productos);
 
-                System.out.println("\n\nPrueba de Tienda Terminada\n\n\n\n\n");
+                System.out.println("\n\nPrueba de Tienda Terminada\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
 
                 System.out.println("\n\n\n\n\n\n\n\n VIENDO Prueba de VENTA");
                 Venta nuevaVenta = new Venta(); //
@@ -158,25 +166,25 @@ public class App {
                 nuevaTienda.getNuevaVenta().verDetalleDeLaVenta();
                 nuevaTienda.verTienda();
                 System.out.println("\n----------------------------------------------------------------");
-                /*
-                 * nuevaTienda.realizarVenta(productoE11);
-                 * nuevaTienda.getNuevaVenta().verVenta();
-                 * nuevaTienda.verTienda();
-                 * // nuevaVenta.agregarUnProductoALaVenta(productoE11,
-                 * // nuevaTienda.getInventario());
-                 * // nuevaVenta.verVenta();
-                 * // nuevaTienda.verTienda();
-                 * System.out.println(
-                 * "\n----------------------------------------------------------------");
-                 * 
-                 * nuevaTienda.realizarVenta(productoB22);
-                 * nuevaTienda.getNuevaVenta().verVenta();
-                 * nuevaTienda.verTienda();
-                 * System.out.println(
-                 * "\n----------------------------------------------------------------");
-                 * nuevaTienda.cerrarVenta();
-                 */
-                System.out.println("\n\n\nPrueba de Venta Terminada\n\n\n");
+
+                // nuevaTienda.realizarVenta(productoE11);
+                nuevaTienda.getNuevaVenta().verVenta();
+                nuevaTienda.verTienda();
+                // nuevaVenta.agregarUnProductoALaVenta(productoE11,
+                // nuevaTienda.getInventario());
+                // nuevaVenta.verVenta();
+                // nuevaTienda.verTienda();
+                System.out.println(
+                                "\n----------------------------------------------------------------");
+
+                // nuevaTienda.realizarVenta(productoB22);
+                nuevaTienda.getNuevaVenta().verVenta();
+                nuevaTienda.verTienda();
+                System.out.println(
+                                "\n----------------------------------------------------------------");
+                nuevaTienda.cerrarVenta();
+
+                System.out.println("\n\nPrueba de Venta Terminada\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
 
                 /*
                 
@@ -264,8 +272,8 @@ public class App {
                 // nuevaTiendaParte3.obtenerComestiblesConMenorDescuento(90f);
                 // nuevaTienda.obtenerComestiblesConMenorDescuento(90f);
 
-                System.out.println("\n\n\n\n\n\n\n\n\n\nTermino la prueba de 3");
                 nuevaTienda.listarProductosConUtilidadesInferiores(20f);
+                System.out.println("\n\n\n\n\n\n\n\n\n\nTermino la prueba de 3");
                 /*
                  * 
                  * 
@@ -313,12 +321,28 @@ public class App {
                 
                  
                  */
+                Tienda nuevaTiendaCompra = new Tienda();
+                nuevaTiendaCompra.setCantidad(15l);
+                nuevaTiendaCompra.setSaldoEnCaja(15000d);
 
-                ProductoLimpieza productoL20 = new ProductoLimpieza(8, "Detergente para la ropa 1l", 900000f, 99999f, 2,
+                System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nPruebas de compra...");
+                ProductoLimpieza productoL25 = new ProductoLimpieza(816, "DDDDDetergente para la ropa 1l", 90f,
+                                99999f, 2,
                                 (byte) 2);
+                ProductoEnvasado productoE801 = new ProductoEnvasado(823, "AAAAsado 3kg", 90f, 56f, 6,
+                                (byte) 0, false,
+                                fecha1,
+                                1500);
+                System.out.println("Realizando una compra con de un producto extremadamente caro");
+                nuevaTiendaCompra.comprarProducto(productoL25);
+                // nuevaTiendaCompra.getInventario().put(productoL25.getIdentificadorAbstracto(),
+                // productoL25);
+                nuevaTiendaCompra.comprarProducto(productoE801);
+                nuevaTiendaCompra.verTienda();
+                System.out.println("Realizando una nueva compra de un producto..");
 
-                System.out.println("\n\nComprando productos...");
-                nuevaTienda.comprarProducto(productoL20);
+                nuevaTiendaCompra.verTienda();
+                System.out.println("\n\nPruebas de compra terminadas");
                 // TODO POR FUNCIONES LA VENTA FUNCIONA PERFECTAMENTE, POR MAIN NO FUNCIONA LA
                 // VENTA!
                 do {

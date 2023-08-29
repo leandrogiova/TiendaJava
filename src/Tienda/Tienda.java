@@ -98,7 +98,7 @@ public class Tienda implements InterfaceTienda {
             String clave = entry.getKey();
             Producto producto = entry.getValue();
 
-            System.out.println("\n\n--->" +
+            System.out.println("\n--->" +
                     producto.getIdentificadorAbstracto() + "  "
                     + producto.getDescripcion() + "  "
                     + ",  precio: " + producto.getPrecio()
@@ -195,11 +195,16 @@ public class Tienda implements InterfaceTienda {
      */
     public void verTienda() {
 
-        System.out.println("\n viendo la tienda...");
+        System.out.println("\n\n\nviendo la tienda...");
+        System.out.println(
+                "---------------------------------------------------------------------------------------------------");
         System.out.println("nombre: " + this.nombre + ",   cantidad: " + this.cantidad + ",  saldoEnCaja: "
-                + this.saldoEnCaja + "\n");
+                + this.saldoEnCaja);
 
         verInventario();
+        System.out.println(
+                "---------------------------------------------------------------------------------------------------\n\n\n\n\n");
+
     }
 
     /*
