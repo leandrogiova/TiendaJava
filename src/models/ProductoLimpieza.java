@@ -48,14 +48,6 @@ public class ProductoLimpieza extends Producto implements FuncionesDescuento, In
         TipoDeAplicacion = tipoDeAplicacion;
     }
 
-    public static String getNOMBRE_CATEGORIA_LIMPIEZA() {
-        return NOMBRE_CATEGORIA_LIMPIEZA;
-    }
-
-    public static void setNOMBRE_CATEGORIA_LIMPIEZA(String nOMBRE_CATEGORIA_LIMPIEZA) {
-        NOMBRE_CATEGORIA_LIMPIEZA = nOMBRE_CATEGORIA_LIMPIEZA;
-    }
-
     @Override
     public Float getDescuento() {
         return null;
@@ -86,14 +78,6 @@ public class ProductoLimpieza extends Producto implements FuncionesDescuento, In
     @Override
     public void setFechaVencimiento(Date fechaVencimiento) {
 
-    }
-
-    public static Float getDESCUENTO_MAXIMO_PRODT_LIMPI() {
-        return DESCUENTO_MAXIMO_PRODT_LIMPI;
-    }
-
-    public static void setDESCUENTO_MAXIMO_PRODT_LIMPI(Float dESCUENTO_MAXIMO_PRODT_LIMPI) {
-        DESCUENTO_MAXIMO_PRODT_LIMPI = dESCUENTO_MAXIMO_PRODT_LIMPI;
     }
 
     /*

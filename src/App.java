@@ -139,6 +139,9 @@ public class App {
                 // Probando
                 nuevaTienda.verInventario();
                 nuevaTienda.actualizarInventarioConProductoVendido(productos);
+
+                // nuevaTienda.agregarDescuento(productoE8, )
+
                 System.out.println("\n\n\nPrueba Terminada\n\n\n");
                 /*
                 *

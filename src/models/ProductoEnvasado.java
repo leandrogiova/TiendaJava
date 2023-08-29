@@ -65,14 +65,6 @@ public class ProductoEnvasado extends Producto implements InterfaceFuncionesProd
 
     }
 
-    public static String getNOMBRE_CATEGORIA_ENVASADO() {
-        return NOMBRE_CATEGORIA_ENVASADO;
-    }
-
-    public static void setNOMBRE_CATEGORIA_ENVASADO(String nOMBRE_CATEGORIA_ENVASADO) {
-        NOMBRE_CATEGORIA_ENVASADO = nOMBRE_CATEGORIA_ENVASADO;
-    }
-
     @Override
     public Date getFechaVencimiento() {
         return this.fechaVencimiento;

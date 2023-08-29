@@ -8,7 +8,8 @@ import funcionesProductos.InterfaceFuncionesProductos;
 public class ProductoBebida extends Producto implements InterfaceFuncionesProductos, FuncionesDescuento {
 
     public static String NOMBRE_CATEGORIA_BEBIDA = "AC";
-    public static Float PORCENTAJE_MAXIMO_DE_BEBIDA = 15.0f;
+    public static Float GANANCIA_PORCENTAJE_MAXIMO_DE_BEBIDA = 15.0f;
+    public static Float DESCUENTO_MAXIMO_PRODT_BEBIDA = 20.0f;
 
     private Boolean alcoholica;
     private Float porcentajeDeAlcohol;
@@ -104,14 +105,14 @@ public class ProductoBebida extends Producto implements InterfaceFuncionesProduc
 
     @Override
     public void setearGanacia(Float precioProducto, Float porcentaje) {
-        if (porcentaje < PORCENTAJE_MAXIMO_DE_BEBIDA) {
+        if (porcentaje < GANANCIA_PORCENTAJE_MAXIMO_DE_BEBIDA) {
 
             Float porcent = precioProducto * (porcentaje / 100);// Calcula la ganancia en base al porcentaje
             Float gananc = porcent + precioProducto;
             setPrecio(gananc); // Suma la ganancia al precio original
 
         } else {
-            System.out.println("El porcentaje de ganacia no puede ser mayor a " + PORCENTAJE_MAXIMO_DE_BEBIDA);
+            System.out.println("El porcentaje de ganacia no puede ser mayor a " + GANANCIA_PORCENTAJE_MAXIMO_DE_BEBIDA);
         }
     }
 

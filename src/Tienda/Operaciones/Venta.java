@@ -179,7 +179,17 @@ public class Venta implements InterfaceVenta {
     public void agregarDescuento(Producto p1, Float descuento) {
 
         if (productoEsProductoEnvasado(p1)) {
-            if (descuento > ProductoEnvasado.getDESCUENTO_MAXIMO_PRODT_ENVASADO()) {
+            if (descuento > ProductoEnvasado.DESCUENTO_MAXIMO_PRODT_ENVASADO) {
+                // TODO seguir aca
+            }
+        }
+        if (productoEsProductoBebida(p1)) {
+            if (descuento > ProductoBebida.DESCUENTO_MAXIMO_PRODT_BEBIDA) {
+                // TODO seguir aca
+            }
+        }
+        if (productoEsProductoEnvasado(p1)) {
+            if (descuento > ProductoLimpieza.DESCUENTO_MAXIMO_PRODT_LIMPI) {
                 // TODO seguir aca
             }
         }
@@ -215,6 +225,15 @@ public class Venta implements InterfaceVenta {
     }
 
     /*
+     * Calcula el descuento que se quiere hacer
+     */
+    public Float calcularDescuento(Float precioP, Float descuento) {
+        // 100 10% ==>
+        // 155 17% == 155 - ((155*¨17)/100)
+        return precioP = precioP - ((precioP * descuento) / 100);
+    }
+
+    /*
      * funcion productoEsProductoEnvasado
      * Recibe un Producto y verifica si el producto es un producto Envasado
      * Hace esto verificando el tipo de identificador
@@ -223,10 +242,58 @@ public class Venta implements InterfaceVenta {
      */
     public Boolean productoEsProductoEnvasado(Producto producto) {
         char[] clave1 = producto.getIdentificadorAbstracto().toCharArray();
-        char[] claveProductoE = ProductoEnvasado.getNOMBRE_CATEGORIA_ENVASADO().toCharArray();
+        char[] claveProducto = ProductoEnvasado.NOMBRE_CATEGORIA_ENVASADO.toCharArray();
         Boolean sonIguales = true;
-        for (int i = 0; i < claveProductoE.length; i++) {
-            if (clave1.length <= i || clave1[i] != claveProductoE[i]) {
+        for (int i = 0; i < claveProducto.length; i++) {
+            if (clave1.length <= i || clave1[i] != claveProducto[i]) {
+                sonIguales = false;
+                break;
+            }
+        }
+        if (sonIguales) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /*
+     * funcion productoEsProductobebida
+     * Recibe un Producto y verifica si el producto es un producto bebida
+     * Hace esto verificando el tipo de identificador
+     * Recibe como parametro un Producto
+     * Retorna True si es un productoBebida
+     */
+    public Boolean productoEsProductoBebida(Producto producto) {
+        char[] clave1 = producto.getIdentificadorAbstracto().toCharArray();
+        char[] claveProducto = ProductoBebida.NOMBRE_CATEGORIA_BEBIDA.toCharArray();
+        Boolean sonIguales = true;
+        for (int i = 0; i < claveProducto.length; i++) {
+            if (clave1.length <= i || clave1[i] != claveProducto[i]) {
+                sonIguales = false;
+                break;
+            }
+        }
+        if (sonIguales) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /*
+     * funcion productoEsProductoLimpieza
+     * Recibe un Producto y verifica si el producto es un producto limpieza
+     * Hace esto verificando el tipo de identificador
+     * Recibe como parametro un Producto
+     * Retorna True si es un productoLimpieza
+     */
+    public Boolean productoEsProductoLimpieza(Producto producto) {
+        char[] clave1 = producto.getIdentificadorAbstracto().toCharArray();
+        char[] claveProducto = ProductoBebida.NOMBRE_CATEGORIA_BEBIDA.toCharArray();
+        Boolean sonIguales = true;
+        for (int i = 0; i < claveProducto.length; i++) {
+            if (clave1.length <= i || clave1[i] != claveProducto[i]) {
                 sonIguales = false;
                 break;
             }
