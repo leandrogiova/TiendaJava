@@ -3,13 +3,14 @@ package Tienda;
 import java.util.HashMap;
 import java.util.Map;
 
+import Tienda.Operaciones.InterfaceTienda;
 import Tienda.Operaciones.Venta;
 import models.Producto;
 import models.ProductoBebida;
 import models.ProductoEnvasado;
 import models.ProductoLimpieza;
 
-public class Tienda {
+public class Tienda implements InterfaceTienda {
 
     private String nombre;
     private Long cantidad;
