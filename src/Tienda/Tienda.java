@@ -212,7 +212,6 @@ public class Tienda implements InterfaceTienda {
      * Recibe como parametro
      */
     public void realizarVenta(Producto producto, Float descuento) {
-        // this.nuevaVenta.setId(1l);
 
         nuevaVenta.agregarUnProductoALaVenta(producto, getInventario(), descuento);
         actualizarInventarioConProductoVendido(nuevaVenta.getProductos());
