@@ -246,7 +246,12 @@ public class Tienda implements InterfaceTienda {
 
                         int cantidad = entry.getValue().getCantidad();
                         cantidad = cantidad - productosVenta[i].getCantidad();
-                        entry.getValue().setCantidad(cantidad);
+                        if (cantidad >= 0) {
+                            entry.getValue().setCantidad(cantidad);
+                        } else {
+                            System.out.println("No hay suficientes productos para vender");
+                        }
+
                     }
                 }
 

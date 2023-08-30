@@ -1,6 +1,7 @@
 package models;
 
 import java.sql.Date;
+import java.util.Scanner;
 
 import funcionesProductos.InterfaceFuncionesProductos;
 
@@ -61,6 +62,10 @@ public class ProductoEnvasado extends Producto implements InterfaceFuncionesProd
         this.calorias = calorias;
 
         setIdentificadorAbstracto(NOMBRE_CATEGORIA_ENVASADO, numero);
+
+    }
+
+    public ProductoEnvasado() {
 
     }
 
@@ -144,5 +149,51 @@ public class ProductoEnvasado extends Producto implements InterfaceFuncionesProd
         } else {
             return false;
         }
+    }
+
+    /*
+     * Funcion para setear un producto por consola
+     */
+    public static ProductoEnvasado ingresarDatosProductosEnvasado(ProductoEnvasado p) {
+        Scanner scanner = new Scanner(System.in);
+        Scanner entrada = new Scanner(System.in);
+
+        System.out.println(
+                "Ingrese un numero de producto, un numero como maximo de 3 cifras:    ");
+
+        int idNum = scanner.nextInt();
+        p.setIdentificadorAbstracto(NOMBRE_CATEGORIA_ENVASADO, idNum);
+        System.out.println("Ingrese nombre y descripcion");
+        String descripcion = entrada.nextLine();
+        p.setDescripcion(descripcion);
+
+        System.out.println("Ingrese si el producto es importado o no: 1-si, 2-no: ");
+        int idNum2 = scanner.nextInt();
+        if (idNum2 == 1) {
+            p.setImportado(true);
+        } else {
+            p.setImportado(false);
+        }
+
+        System.out.println("Ingrese un numero el precio de costo: ");
+        Float idNum_ = scanner.nextFloat();
+        p.setCostoPorUnidad(idNum_);
+
+        System.out.println("ingrese el porcentaje de ganacia al producto:");
+        idNum_ = entrada.nextFloat();
+        p.setearGanacia(p.getCostoPorUnidad(), idNum_);
+
+        System.out.println("Ingrese la cantidad:");
+        idNum2 = scanner.nextInt();
+        p.setCantidad(idNum2);
+
+        System.out.println("Ingrese el tipo de aplicacion1Cocina, 0-Plastico, 1-Vidrio, 2-Lata: Ingrese una opcion:");
+        idNum2 = scanner.nextByte();
+        p.setTipoEnvase(TIPO_DE_ENVASE[idNum2]);
+        System.out.println("Ingrese la calorias del producto: ");
+        idNum2 = scanner.nextInt();
+        p.setCalorias(idNum2);
+
+        return p;
     }
 }

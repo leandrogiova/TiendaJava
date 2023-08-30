@@ -104,13 +104,7 @@ public class Venta implements InterfaceVenta {
                     agregarProducto_A_Productos(p2);// agega un producto a this.productos en la posicion que corresponde
 
                     calcularPrecioVenta();
-                    /*
-                     * if (p2.getDescuento() != null) {
-                     * this.precio = this.precio + (p2.getPrecio() * p2.getCantidad());
-                     * } else {
-                     * 
-                     * }
-                     */
+
                 }
             } else {
                 System.out.println("No se pueden comprar mas de " + CANTIDAD_DE_PRODUCTOS_EL_MISMO_TIPO + " productos");

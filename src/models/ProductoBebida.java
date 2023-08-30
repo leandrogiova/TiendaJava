@@ -1,6 +1,7 @@
 package models;
 
 import java.sql.Date;
+import java.util.Scanner;
 
 import funcionesProductos.InterfaceFuncionesProductos;
 
@@ -41,6 +42,10 @@ public class ProductoBebida extends Producto implements InterfaceFuncionesProduc
         this.calorias = calorias;
 
         setIdentificadorAbstracto(NOMBRE_CATEGORIA_BEBIDA, numero);
+
+    }
+
+    public ProductoBebida() {
 
     }
 
@@ -146,4 +151,57 @@ public class ProductoBebida extends Producto implements InterfaceFuncionesProduc
         }
     }
 
+    /*
+     * Funcion para setear un producto por consola
+     */
+    public static ProductoBebida ingresarDatosProductosBebida(ProductoBebida p) {
+        Scanner scanner = new Scanner(System.in);
+        Scanner entrada = new Scanner(System.in);
+
+        System.out.println(
+                "Ingrese un numero de producto, un numero como maximo de 3 cifras:    ");
+
+        int idNum = scanner.nextInt();
+        p.setIdentificadorAbstracto(NOMBRE_CATEGORIA_BEBIDA, idNum);
+        System.out.println("Ingrese nombre y descripcion");
+        String descripcion = entrada.nextLine();
+        p.setDescripcion(descripcion);
+
+        System.out.println("Ingrese si el producto es importado o no: 1-si, 2-no: ");
+        int idNum2 = scanner.nextInt();
+        if (idNum2 == 1) {
+            p.setImportado(true);
+
+        }
+
+        System.out.println("Ingrese un numero el precio de costo: ");
+        Float idNum_ = scanner.nextFloat();
+        p.setCostoPorUnidad(idNum_);
+
+        System.out.println("Ingrese el porcentaje de ganacia al producto:");
+        idNum_ = entrada.nextFloat();
+        p.setearGanacia(p.getCostoPorUnidad(), idNum_);
+
+        System.out.println("Ingrese la cantidad:");
+        idNum2 = scanner.nextInt();
+        p.setCantidad(idNum2);
+
+        System.out.println("Ingrese si el producto contiene alcohol: 1-Si, 2-No: ");
+        idNum2 = scanner.nextInt();
+        if (idNum2 == 1) {
+            p.setAlcoholica(true);
+        } else {
+            p.setAlcoholica(false);
+        }
+
+        System.out.println("Ingrese un numero de porcentaje de alcohol: ");
+        idNum_ = scanner.nextFloat();
+        p.setPorcentajeDeAlcohol(idNum_);
+
+        System.out.println("Ingrese la calorias del producto: ");
+        idNum2 = scanner.nextInt();
+        p.setCalorias(idNum2);
+
+        return p;
+    }
 }
